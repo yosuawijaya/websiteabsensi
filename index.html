@@ -13,22 +13,7 @@
             transition: all 0.3s ease;
         }
         
-        /* Dark mode styles */
-        .dark {
-            background-color: #1a202c;
-            color: #e2e8f0;
-        }
-        
-        .dark .bg-white { background-color: #2d3748 !important; }
-        .dark .bg-gray-50 { background-color: #1a202c !important; }
-        .dark .bg-gray-100 { background-color: #2d3748 !important; }
-        .dark .text-gray-800 { color: #e2e8f0 !important; }
-        .dark .text-gray-700 { color: #cbd5e0 !important; }
-        .dark .text-gray-600 { color: #a0aec0 !important; }
-        .dark .text-gray-500 { color: #718096 !important; }
-        .dark .border-gray-200 { border-color: #4a5568 !important; }
-        .dark .border-gray-300 { border-color: #4a5568 !important; }
-        .dark .divide-gray-200 { border-color: #4a5568 !important; }
+
         
         /* Toast notification styles */
         .toast {
@@ -133,25 +118,18 @@
                     </div>
                     
                     <div class="flex items-center space-x-2 sm:space-x-3">
-                        <!-- Dark Mode Toggle -->
-                        <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle Dark Mode">
-                            <svg id="darkModeIcon" class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                            </svg>
-                        </button>
-                        
                         <!-- Profile Button -->
-                        <button onclick="openProfileModal()" class="flex items-center space-x-1 sm:space-x-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg p-1 transition-colors">
-                            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600 dark:text-blue-300 font-medium text-xs sm:text-sm" id="userInitials">AS</span>
+                        <button onclick="openProfileModal()" class="flex items-center space-x-1 sm:space-x-2 hover:bg-gray-100 rounded-lg p-1 transition-colors">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-xs sm:text-sm" id="userInitials">AS</span>
                             </div>
                             <div class="hidden sm:block">
-                                <p class="text-sm font-medium text-gray-800 dark:text-gray-200" id="userName">Andi Setiawan</p>
-                                <p class="text-xs text-gray-600 dark:text-gray-400">Kelas 9B</p>
+                                <p class="text-sm font-medium text-gray-800" id="userName">Andi Setiawan</p>
+                                <p class="text-xs text-gray-600">Kelas 9B</p>
                             </div>
                         </button>
                         
-                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-1 transition-colors">
+                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1 transition-colors">
                             <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
@@ -189,13 +167,13 @@
                         <!-- Form Absensi -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tanggal</label>
-                                <input type="date" id="tanggalAbsen" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal</label>
+                                <input type="date" id="tanggalAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status Kehadiran</label>
-                                <select id="statusAbsen" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Status Kehadiran</label>
+                                <select id="statusAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                     <option value="hadir">Hadir</option>
                                     <option value="sakit">Sakit</option>
                                     <option value="izin">Izin</option>
@@ -204,8 +182,8 @@
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Keterangan (Opsional)</label>
-                                <textarea id="keteranganAbsen" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Keterangan (Opsional)</label>
+                                <textarea id="keteranganAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
                             </div>
                             
                             <button onclick="submitAbsensi()" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
@@ -215,9 +193,9 @@
                         
                         <!-- Riwayat Absensi -->
                         <div>
-                            <h3 class="font-medium text-gray-800 dark:text-gray-200 mb-4">Riwayat Absensi (7 Hari Terakhir)</h3>
+                            <h3 class="font-medium text-gray-800 mb-4">Riwayat Absensi (7 Hari Terakhir)</h3>
                             <div class="space-y-2" id="riwayatAbsensi">
-                                <div class="text-center py-8 text-gray-500 dark:text-gray-400">
+                                <div class="text-center py-8 text-gray-500">
                                     <p class="text-sm">Belum ada riwayat absensi</p>
                                     <p class="text-xs mt-1">Silakan submit absensi untuk melihat riwayat</p>
                                 </div>
@@ -226,8 +204,8 @@
                         
                         <!-- Statistik Chart -->
                         <div>
-                            <h3 class="font-medium text-gray-800 dark:text-gray-200 mb-4">Statistik Kehadiran</h3>
-                            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-800 mb-4">Statistik Kehadiran</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
                                 <div class="chart-container">
                                     <canvas id="attendanceChart"></canvas>
                                 </div>
@@ -235,13 +213,13 @@
                             
                             <!-- Quick Stats -->
                             <div class="grid grid-cols-2 gap-2 mt-4">
-                                <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3 text-center">
-                                    <p class="text-xs text-green-600 dark:text-green-400">Total Hadir</p>
-                                    <p class="text-lg font-bold text-green-700 dark:text-green-300" id="totalHadir">0</p>
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-green-600">Total Hadir</p>
+                                    <p class="text-lg font-bold text-green-700" id="totalHadir">0</p>
                                 </div>
-                                <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 text-center">
-                                    <p class="text-xs text-red-600 dark:text-red-400">Total Alpha</p>
-                                    <p class="text-lg font-bold text-red-700 dark:text-red-300" id="totalAlpha">0</p>
+                                <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-red-600">Total Alpha</p>
+                                    <p class="text-lg font-bold text-red-700" id="totalAlpha">0</p>
                                 </div>
                             </div>
                         </div>
@@ -667,15 +645,15 @@
 
     <!-- Welcome Popup -->
     <div id="welcomePopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div id="welcomeCard" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 max-w-sm sm:max-w-md mx-4 transform scale-0 transition-all duration-500 ease-out">
+        <div id="welcomeCard" class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-sm sm:max-w-md mx-4 transform scale-0 transition-all duration-500 ease-out">
             <div class="text-center">
                 <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-bounce">
                     <span class="text-white text-2xl sm:text-3xl">🎉</span>
                 </div>
-                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">Selamat Datang!</h2>
-                <p class="text-base sm:text-lg font-medium text-blue-600 dark:text-blue-400 mb-2" id="welcomeName">Cantika Mamahit</p>
-                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6" id="welcomeRole">Anda berhasil masuk sebagai Siswa</p>
-                <div class="flex items-center justify-center space-x-2 text-gray-500 dark:text-gray-400 mb-4 sm:mb-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Selamat Datang!</h2>
+                <p class="text-base sm:text-lg font-medium text-blue-600 mb-2" id="welcomeName">Cantika Mamahit</p>
+                <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6" id="welcomeRole">Anda berhasil masuk sebagai Siswa</p>
+                <div class="flex items-center justify-center space-x-2 text-gray-500 mb-4 sm:mb-6">
                     <span class="text-xs sm:text-sm">Semoga hari Anda menyenangkan!</span>
                     <span class="text-base sm:text-lg animate-pulse">😊</span>
                 </div>
@@ -688,10 +666,10 @@
 
     <!-- Profile Modal -->
     <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center z-50 hidden">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-w-md mx-4 w-full transform scale-0 transition-all duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-md mx-4 w-full transform scale-0 transition-all duration-300">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">Profil Saya</h2>
-                <button onclick="closeProfileModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">Profil Saya</h2>
+                <button onclick="closeProfileModal()" class="text-gray-500 hover:text-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -702,22 +680,22 @@
                 <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span class="text-white text-2xl font-bold" id="profileInitials">CM</span>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200" id="profileName">Cantika Mamahit</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400" id="profileEmail">cantika@strafael.sch.id</p>
-                <p class="text-sm text-gray-500 dark:text-gray-500" id="profileRole">Siswa Kelas 9B</p>
+                <h3 class="text-lg font-semibold text-gray-800" id="profileName">Cantika Mamahit</h3>
+                <p class="text-sm text-gray-600" id="profileEmail">cantika@strafael.sch.id</p>
+                <p class="text-sm text-gray-500" id="profileRole">Siswa Kelas 9B</p>
             </div>
             
             <div class="space-y-4">
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                    <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-2">Statistik Kehadiran</h4>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-medium text-gray-800 mb-2">Statistik Kehadiran</h4>
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div>
-                            <p class="text-2xl font-bold text-green-600 dark:text-green-400" id="profileHadir">0</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">Hari Hadir</p>
+                            <p class="text-2xl font-bold text-green-600" id="profileHadir">0</p>
+                            <p class="text-xs text-gray-600">Hari Hadir</p>
                         </div>
                         <div>
-                            <p class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="profilePersentase">0%</p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">Persentase</p>
+                            <p class="text-2xl font-bold text-blue-600" id="profilePersentase">0%</p>
+                            <p class="text-xs text-gray-600">Persentase</p>
                         </div>
                     </div>
                 </div>
@@ -736,16 +714,16 @@
 
     <!-- Toast Notification -->
     <div id="toastNotification" class="toast">
-        <div class="bg-white dark:bg-gray-800 border-l-4 border-blue-500 rounded-lg shadow-lg p-4 max-w-sm">
+        <div class="bg-white border-l-4 border-blue-500 rounded-lg shadow-lg p-4 max-w-sm">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <span id="toastIcon" class="text-2xl">✅</span>
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm font-medium text-gray-800 dark:text-gray-200" id="toastTitle">Berhasil!</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400" id="toastMessage">Operasi berhasil dilakukan</p>
+                    <p class="text-sm font-medium text-gray-800" id="toastTitle">Berhasil!</p>
+                    <p class="text-xs text-gray-600" id="toastMessage">Operasi berhasil dilakukan</p>
                 </div>
-                <button onclick="hideToast()" class="ml-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <button onclick="hideToast()" class="ml-4 text-gray-400 hover:text-gray-600">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -968,48 +946,8 @@
         document.getElementById('tanggalAbsen').valueAsDate = new Date();
         document.getElementById('filterDate').valueAsDate = new Date();
 
-        // Dark Mode Management
+        // Chart Management
         let attendanceChart = null;
-
-        function toggleDarkMode() {
-            const body = document.body;
-            const isDark = body.classList.contains('dark');
-            
-            if (isDark) {
-                body.classList.remove('dark');
-                localStorage.setItem('darkMode', 'false');
-                updateDarkModeIcon(false);
-            } else {
-                body.classList.add('dark');
-                localStorage.setItem('darkMode', 'true');
-                updateDarkModeIcon(true);
-            }
-            
-            // Update chart colors if chart exists
-            if (attendanceChart) {
-                updateChartColors();
-            }
-        }
-
-        function updateDarkModeIcon(isDark) {
-            const icon = document.getElementById('darkModeIcon');
-            if (isDark) {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
-            } else {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
-            }
-        }
-
-        // Initialize dark mode from localStorage
-        function initializeDarkMode() {
-            const savedDarkMode = localStorage.getItem('darkMode');
-            if (savedDarkMode === 'true') {
-                document.body.classList.add('dark');
-                updateDarkModeIcon(true);
-            } else {
-                updateDarkModeIcon(false);
-            }
-        }
 
         // Toast Notification System
         function showToast(title, message, type = 'success') {
@@ -1024,7 +962,7 @@
             
             // Set icon and colors based on type
             const toastContainer = toast.querySelector('div');
-            toastContainer.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 max-w-sm border-l-4';
+            toastContainer.className = 'bg-white rounded-lg shadow-lg p-4 max-w-sm border-l-4';
             
             switch(type) {
                 case 'success':
@@ -1113,9 +1051,6 @@
                 alpha: userAttendance.filter(r => r.status === 'alpha').length
             };
             
-            const isDark = document.body.classList.contains('dark');
-            const textColor = isDark ? '#e2e8f0' : '#374151';
-            
             attendanceChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -1124,7 +1059,7 @@
                         data: [statusCounts.hadir, statusCounts.sakit, statusCounts.izin, statusCounts.alpha],
                         backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#ef4444'],
                         borderWidth: 2,
-                        borderColor: isDark ? '#2d3748' : '#ffffff'
+                        borderColor: '#ffffff'
                     }]
                 },
                 options: {
@@ -1134,7 +1069,7 @@
                         legend: {
                             position: 'bottom',
                             labels: {
-                                color: textColor,
+                                color: '#374151',
                                 font: { size: 12 },
                                 padding: 15
                             }
@@ -1146,18 +1081,6 @@
             // Update quick stats
             document.getElementById('totalHadir').textContent = statusCounts.hadir;
             document.getElementById('totalAlpha').textContent = statusCounts.alpha;
-        }
-
-        function updateChartColors() {
-            if (!attendanceChart) return;
-            
-            const isDark = document.body.classList.contains('dark');
-            const textColor = isDark ? '#e2e8f0' : '#374151';
-            const borderColor = isDark ? '#2d3748' : '#ffffff';
-            
-            attendanceChart.data.datasets[0].borderColor = borderColor;
-            attendanceChart.options.plugins.legend.labels.color = textColor;
-            attendanceChart.update();
         }
         
         // Welcome popup functions
@@ -1548,9 +1471,6 @@
 
         // Auto-login if user data exists
         window.addEventListener('load', function() {
-            // Initialize dark mode
-            initializeDarkMode();
-            
             const currentUser = getCurrentUser();
             if (currentUser) {
                 // Auto-login user
@@ -1580,5 +1500,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ecf0fcc5bb04fe',t:'MTc1NTEzNzY5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ecf79f260404fe',t:'MTc1NTEzNzk2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
