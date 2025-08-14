@@ -183,13 +183,28 @@
                             </button>
                         </div>
                         
-                        <div class="bg-blue-50 rounded-lg p-4">
-                            <h3 class="font-medium text-gray-800 mb-3">Tips Memberikan Kritik & Saran</h3>
-                            <div class="space-y-2 text-sm text-gray-600">
-                                <p>• Gunakan bahasa yang sopan dan konstruktif</p>
-                                <p>• Berikan contoh konkret jika memungkinkan</p>
-                                <p>• Sertakan saran perbaikan</p>
-                                <p>• Kritik dan saran akan disampaikan secara anonim</p>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 rounded-lg p-4">
+                                <h3 class="font-medium text-gray-800 mb-3">Tips Memberikan Kritik & Saran</h3>
+                                <div class="space-y-2 text-sm text-gray-600">
+                                    <p>• Gunakan bahasa yang sopan dan konstruktif</p>
+                                    <p>• Berikan contoh konkret jika memungkinkan</p>
+                                    <p>• Sertakan saran perbaikan</p>
+                                    <p>• Kritik dan saran akan disampaikan secara anonim</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h3 class="font-medium text-gray-800 mb-3">📊 Data Management</h3>
+                                <div class="space-y-2">
+                                    <button onclick="exportUserData()" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-sm">
+                                        📥 Export Data Saya
+                                    </button>
+                                    <button onclick="clearUserData()" class="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-200 text-sm">
+                                        🗑️ Hapus Semua Data
+                                    </button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">Data disimpan di browser Anda secara lokal</p>
                             </div>
                         </div>
                     </div>
@@ -573,6 +588,215 @@
     </div>
 
     <script>
+        // Local Storage Management
+        const STORAGE_KEYS = {
+            ATTENDANCE: 'strafael_attendance',
+            FEEDBACK: 'strafael_feedback',
+            USER_DATA: 'strafael_user_data',
+            TEACHER_DATA: 'strafael_teacher_data'
+        };
+
+        // Initialize storage and load data
+        function initializeStorage() {
+            if (!localStorage.getItem(STORAGE_KEYS.ATTENDANCE)) {
+                localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify([]));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.FEEDBACK)) {
+                localStorage.setItem(STORAGE_KEYS.FEEDBACK, JSON.stringify([]));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.TEACHER_DATA)) {
+                localStorage.setItem(STORAGE_KEYS.TEACHER_DATA, JSON.stringify({
+                    attendanceData: [],
+                    feedbackData: []
+                }));
+            }
+        }
+
+        // Save attendance data
+        function saveAttendanceData(data) {
+            const existingData = JSON.parse(localStorage.getItem(STORAGE_KEYS.ATTENDANCE) || '[]');
+            existingData.push(data);
+            localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify(existingData));
+        }
+
+        // Get attendance data
+        function getAttendanceData() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEYS.ATTENDANCE) || '[]');
+        }
+
+        // Save feedback data
+        function saveFeedbackData(data) {
+            const existingData = JSON.parse(localStorage.getItem(STORAGE_KEYS.FEEDBACK) || '[]');
+            existingData.push(data);
+            localStorage.setItem(STORAGE_KEYS.FEEDBACK, JSON.stringify(existingData));
+        }
+
+        // Get feedback data
+        function getFeedbackData() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEYS.FEEDBACK) || '[]');
+        }
+
+        // Save current user data
+        function saveCurrentUser(userData) {
+            localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(userData));
+        }
+
+        // Get current user data
+        function getCurrentUser() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEYS.USER_DATA) || 'null');
+        }
+
+        // Clear all data (for logout)
+        function clearUserSession() {
+            localStorage.removeItem(STORAGE_KEYS.USER_DATA);
+        }
+
+        // Load attendance history
+        function loadAttendanceHistory() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) return;
+
+            const allAttendance = getAttendanceData();
+            const userAttendance = allAttendance.filter(record => record.email === currentUser.email);
+            
+            const riwayat = document.getElementById('riwayatAbsensi');
+            
+            if (userAttendance.length === 0) {
+                riwayat.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <p class="text-sm">Belum ada riwayat absensi</p>
+                        <p class="text-xs mt-1">Silakan submit absensi untuk melihat riwayat</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const statusColors = {
+                'hadir': 'text-green-600',
+                'sakit': 'text-orange-600',
+                'izin': 'text-yellow-600',
+                'alpha': 'text-red-600'
+            };
+
+            // Sort by date (newest first) and take last 7 records
+            const recentAttendance = userAttendance
+                .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal))
+                .slice(0, 7);
+
+            riwayat.innerHTML = recentAttendance.map(record => `
+                <div class="flex justify-between items-center py-2 px-3 bg-gray-50 rounded-md">
+                    <div>
+                        <span class="text-sm text-gray-600">${record.tanggal}</span>
+                        ${record.keterangan ? `<p class="text-xs text-gray-500 mt-1">${record.keterangan}</p>` : ''}
+                    </div>
+                    <span class="text-sm font-medium ${statusColors[record.status]}">${record.status.charAt(0).toUpperCase() + record.status.slice(1)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Load teacher attendance data
+        function loadTeacherAttendanceData() {
+            const allAttendance = getAttendanceData();
+            const today = new Date().toISOString().split('T')[0];
+            const todayAttendance = allAttendance.filter(record => record.tanggal === today);
+
+            // Update counters
+            const hadirCount = todayAttendance.filter(r => r.status === 'hadir').length;
+            const izinCount = todayAttendance.filter(r => r.status === 'izin' || r.status === 'sakit').length;
+            const alphaCount = todayAttendance.filter(r => r.status === 'alpha').length;
+
+            document.getElementById('hadirCount').textContent = hadirCount;
+            document.getElementById('izinCount').textContent = izinCount;
+            document.getElementById('alphaCount').textContent = alphaCount;
+
+            // Update table
+            const tableBody = document.getElementById('attendanceTable');
+            
+            if (todayAttendance.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-4 py-8 text-center text-gray-500">
+                            <p class="text-sm">Belum ada data kehadiran hari ini</p>
+                            <p class="text-xs mt-1">Data akan muncul setelah siswa melakukan absensi</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const statusColors = {
+                'hadir': 'text-green-600 bg-green-50',
+                'sakit': 'text-orange-600 bg-orange-50',
+                'izin': 'text-yellow-600 bg-yellow-50',
+                'alpha': 'text-red-600 bg-red-50'
+            };
+
+            tableBody.innerHTML = todayAttendance.map((record, index) => `
+                <tr>
+                    <td class="px-2 sm:px-4 py-2 text-xs sm:text-sm text-gray-900">${index + 1}</td>
+                    <td class="px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-900">${record.nama}</td>
+                    <td class="px-2 sm:px-4 py-2">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium ${statusColors[record.status]}">
+                            ${record.status.charAt(0).toUpperCase() + record.status.slice(1)}
+                        </span>
+                    </td>
+                    <td class="px-2 sm:px-4 py-2 text-xs sm:text-sm text-gray-600">${record.keterangan || '-'}</td>
+                    <td class="px-2 sm:px-4 py-2 text-xs sm:text-sm text-gray-600">${record.waktu}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Load teacher feedback data
+        function loadTeacherFeedbackData() {
+            const allFeedback = getFeedbackData();
+            const feedbackSection = document.getElementById('kritik-guruSection');
+            const feedbackContainer = feedbackSection.querySelector('.space-y-4');
+
+            if (allFeedback.length === 0) {
+                feedbackContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <p class="text-sm">Belum ada kritik & saran dari siswa</p>
+                        <p class="text-xs mt-1">Data akan muncul setelah siswa mengirim feedback</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const categoryColors = {
+                'pembelajaran': 'border-blue-500 bg-blue-50',
+                'fasilitas': 'border-green-500 bg-green-50',
+                'guru': 'border-purple-500 bg-purple-50',
+                'sistem': 'border-orange-500 bg-orange-50',
+                'lainnya': 'border-gray-500 bg-gray-50'
+            };
+
+            const categoryBadgeColors = {
+                'pembelajaran': 'bg-blue-500',
+                'fasilitas': 'bg-green-500',
+                'guru': 'bg-purple-500',
+                'sistem': 'bg-orange-500',
+                'lainnya': 'bg-gray-500'
+            };
+
+            // Sort by date (newest first)
+            const sortedFeedback = allFeedback.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            feedbackContainer.innerHTML = sortedFeedback.map(feedback => `
+                <div class="border-l-4 ${categoryColors[feedback.kategori]} p-4 rounded">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="px-2 py-1 ${categoryBadgeColors[feedback.kategori]} text-white text-xs rounded">${feedback.kategori.charAt(0).toUpperCase() + feedback.kategori.slice(1)}</span>
+                        <span class="text-xs text-gray-500">${new Date(feedback.timestamp).toLocaleString('id-ID')}</span>
+                    </div>
+                    <h3 class="font-medium text-gray-800 mb-2">${feedback.judul}</h3>
+                    <p class="text-gray-700 text-sm">${feedback.pesan}</p>
+                    <p class="text-xs text-gray-500 mt-2">Dari: ${feedback.nama || 'Siswa Anonim'}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize storage on page load
+        initializeStorage();
+
         // Set today's date as default
         document.getElementById('tanggalAbsen').valueAsDate = new Date();
         document.getElementById('filterDate').valueAsDate = new Date();
@@ -637,6 +861,15 @@
                 return;
             }
             
+            // Save user data to localStorage
+            const userData = {
+                email: email.toLowerCase(),
+                name: user.name,
+                role: role,
+                loginTime: new Date().toISOString()
+            };
+            saveCurrentUser(userData);
+
             // Hide login page
             document.getElementById('loginPage').classList.add('hidden');
             
@@ -645,10 +878,17 @@
                 document.getElementById('teacherName').textContent = user.name;
                 document.getElementById('teacherInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
                 document.getElementById('teacherDashboard').classList.remove('hidden');
+                
+                // Load teacher data
+                loadTeacherAttendanceData();
+                loadTeacherFeedbackData();
             } else {
                 document.getElementById('userName').textContent = user.name;
                 document.getElementById('userInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
                 document.getElementById('dashboard').classList.remove('hidden');
+                
+                // Load student data
+                loadAttendanceHistory();
             }
             
             // Show welcome popup
@@ -671,48 +911,95 @@
         
         // Absensi functionality
         function submitAbsensi() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Silakan login terlebih dahulu');
+                return;
+            }
+
             const tanggal = document.getElementById('tanggalAbsen').value;
             const status = document.getElementById('statusAbsen').value;
+            const keterangan = document.getElementById('keteranganAbsen').value.trim();
             
             if (!tanggal) {
                 alert('Pilih tanggal terlebih dahulu');
                 return;
             }
+
+            // Check if already submitted for this date
+            const existingAttendance = getAttendanceData();
+            const alreadySubmitted = existingAttendance.some(record => 
+                record.email === currentUser.email && record.tanggal === tanggal
+            );
+
+            if (alreadySubmitted) {
+                if (!confirm('Anda sudah absen untuk tanggal ini. Apakah ingin mengubah status absensi?')) {
+                    return;
+                }
+                // Remove existing record for this date
+                const updatedAttendance = existingAttendance.filter(record => 
+                    !(record.email === currentUser.email && record.tanggal === tanggal)
+                );
+                localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify(updatedAttendance));
+            }
             
-            // Add to history
-            const riwayat = document.getElementById('riwayatAbsensi');
-            const statusColors = {
-                'hadir': 'text-green-600',
-                'sakit': 'text-orange-600',
-                'izin': 'text-yellow-600',
-                'alpha': 'text-red-600'
+            // Create attendance record
+            const attendanceRecord = {
+                email: currentUser.email,
+                nama: currentUser.name,
+                tanggal: tanggal,
+                status: status,
+                keterangan: keterangan,
+                waktu: new Date().toLocaleTimeString('id-ID'),
+                timestamp: new Date().toISOString()
             };
+
+            // Save to localStorage
+            saveAttendanceData(attendanceRecord);
             
-            const newEntry = document.createElement('div');
-            newEntry.className = 'flex justify-between items-center py-2 px-3 bg-gray-50 rounded-md';
-            newEntry.innerHTML = `
-                <span class="text-sm text-gray-600">${tanggal}</span>
-                <span class="text-sm font-medium ${statusColors[status]}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>
-            `;
-            
-            riwayat.insertBefore(newEntry, riwayat.firstChild);
+            // Clear form
             document.getElementById('keteranganAbsen').value = '';
+            
+            // Reload attendance history
+            loadAttendanceHistory();
             
             alert('Absensi berhasil disimpan!');
         }
         
         // Kritik & Saran functionality
         function submitKritik() {
-            const judul = document.getElementById('judulKritik').value;
-            const pesan = document.getElementById('pesanKritik').value;
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Silakan login terlebih dahulu');
+                return;
+            }
+
+            const kategori = document.getElementById('kategoriKritik').value;
+            const judul = document.getElementById('judulKritik').value.trim();
+            const pesan = document.getElementById('pesanKritik').value.trim();
             
             if (!judul || !pesan) {
                 alert('Harap isi judul dan pesan');
                 return;
             }
+
+            // Create feedback record
+            const feedbackRecord = {
+                email: currentUser.email,
+                nama: currentUser.name,
+                kategori: kategori,
+                judul: judul,
+                pesan: pesan,
+                timestamp: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            saveFeedbackData(feedbackRecord);
             
+            // Clear form
             document.getElementById('judulKritik').value = '';
             document.getElementById('pesanKritik').value = '';
+            document.getElementById('kategoriKritik').value = 'pembelajaran';
             
             alert('Kritik & saran berhasil dikirim!');
         }
@@ -750,9 +1037,37 @@
                 '03': 'Maret'
             };
             
-            let csvContent = "No,Nama Siswa,Hadir,Izin,Sakit,Alpha,Persentase\n";
-            csvContent += "1,Andi Setiawan,18,1,1,0,90%\n";
-            csvContent += "2,Bella Kalangi,20,0,0,0,100%\n";
+            // Get real data from localStorage
+            const allAttendance = getAttendanceData();
+            const monthAttendance = allAttendance.filter(record => {
+                const recordMonth = record.tanggal.split('-')[1];
+                return recordMonth === month;
+            });
+
+            // Group by student
+            const studentStats = {};
+            monthAttendance.forEach(record => {
+                if (!studentStats[record.nama]) {
+                    studentStats[record.nama] = { hadir: 0, izin: 0, sakit: 0, alpha: 0 };
+                }
+                studentStats[record.nama][record.status]++;
+            });
+
+            let csvContent = "No,Nama Siswa,Hadir,Izin,Sakit,Alpha,Total,Persentase\n";
+            let no = 1;
+            
+            Object.keys(studentStats).forEach(nama => {
+                const stats = studentStats[nama];
+                const total = stats.hadir + stats.izin + stats.sakit + stats.alpha;
+                const persentase = total > 0 ? Math.round((stats.hadir / total) * 100) : 0;
+                
+                csvContent += `${no},${nama},${stats.hadir},${stats.izin},${stats.sakit},${stats.alpha},${total},${persentase}%\n`;
+                no++;
+            });
+
+            if (Object.keys(studentStats).length === 0) {
+                csvContent += "1,Belum ada data,0,0,0,0,0,0%\n";
+            }
             
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
@@ -766,19 +1081,126 @@
             
             alert(`File Excel berhasil diunduh untuk bulan ${monthNames[month]} 2024!`);
         }
+
+        // Export user data functionality
+        function exportUserData() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Silakan login terlebih dahulu');
+                return;
+            }
+
+            const allAttendance = getAttendanceData();
+            const userAttendance = allAttendance.filter(record => record.email === currentUser.email);
+            
+            const allFeedback = getFeedbackData();
+            const userFeedback = allFeedback.filter(record => record.email === currentUser.email);
+
+            const exportData = {
+                user: currentUser,
+                attendance: userAttendance,
+                feedback: userFeedback,
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Data_${currentUser.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            alert('Data berhasil diexport! File JSON telah diunduh.');
+        }
+
+        // Clear user data functionality
+        function clearUserData() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                alert('Silakan login terlebih dahulu');
+                return;
+            }
+
+            if (!confirm('⚠️ PERINGATAN!\n\nApakah Anda yakin ingin menghapus SEMUA data Anda?\n\nData yang akan dihapus:\n• Semua riwayat absensi\n• Semua kritik & saran\n• Data profil\n\nTindakan ini TIDAK DAPAT DIBATALKAN!')) {
+                return;
+            }
+
+            if (!confirm('Konfirmasi sekali lagi: Hapus SEMUA data saya?')) {
+                return;
+            }
+
+            // Remove user's attendance data
+            const allAttendance = getAttendanceData();
+            const filteredAttendance = allAttendance.filter(record => record.email !== currentUser.email);
+            localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify(filteredAttendance));
+
+            // Remove user's feedback data
+            const allFeedback = getFeedbackData();
+            const filteredFeedback = allFeedback.filter(record => record.email !== currentUser.email);
+            localStorage.setItem(STORAGE_KEYS.FEEDBACK, JSON.stringify(filteredFeedback));
+
+            // Clear user session and logout
+            clearUserSession();
+            
+            // Redirect to login
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('teacherDashboard').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            
+            document.getElementById('emailInput').value = '';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('roleSelect').value = 'siswa';
+
+            alert('✅ Semua data Anda telah berhasil dihapus!\n\nAnda akan diarahkan ke halaman login.');
+        }
         
         // Logout functionality
         function logout() {
             if (confirm('Apakah Anda yakin ingin keluar?')) {
+                // Clear user session
+                clearUserSession();
+                
+                // Hide dashboards
                 document.getElementById('dashboard').classList.add('hidden');
                 document.getElementById('teacherDashboard').classList.add('hidden');
                 document.getElementById('loginPage').classList.remove('hidden');
                 
+                // Clear login form
                 document.getElementById('emailInput').value = '';
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('roleSelect').value = 'siswa';
             }
         }
+
+        // Auto-login if user data exists
+        window.addEventListener('load', function() {
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                // Auto-login user
+                document.getElementById('loginPage').classList.add('hidden');
+                
+                if (currentUser.role === 'guru') {
+                    document.getElementById('teacherName').textContent = currentUser.name;
+                    document.getElementById('teacherInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    document.getElementById('teacherDashboard').classList.remove('hidden');
+                    
+                    // Load teacher data
+                    loadTeacherAttendanceData();
+                    loadTeacherFeedbackData();
+                } else {
+                    document.getElementById('userName').textContent = currentUser.name;
+                    document.getElementById('userInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    
+                    // Load student data
+                    loadAttendanceHistory();
+                }
+            }
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ecc32c54b90960',t:'MTc1NTEzNTgxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ece892b34404fe',t:'MTc1NTEzNzM0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
