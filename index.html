@@ -13,6 +13,15 @@
             transition: all 0.3s ease;
         }
         
+        /* Hide scrollbar for mobile navigation */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
 
         
         /* Toast notification styles */
@@ -104,24 +113,24 @@
     <!-- Dashboard -->
     <div id="dashboard" class="hidden min-h-screen bg-gray-50">
         <!-- Header -->
-        <header class="bg-white shadow-sm border-b">
-            <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4">
+        <header class="bg-white shadow-sm border-b sticky top-0 z-40">
+            <div class="px-3 py-2 sm:px-4 sm:py-3">
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-2 sm:space-x-3">
-                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-lg sm:text-xl">🎓</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">🎓</span>
                         </div>
                         <div>
-                            <h1 class="text-base sm:text-lg font-bold text-gray-800">St. Rafael School</h1>
-                            <p class="text-xs sm:text-sm text-gray-600 hidden sm:block">Sistem Absensi</p>
+                            <h1 class="text-sm sm:text-lg font-bold text-gray-800">St. Rafael</h1>
+                            <p class="text-xs text-gray-600 hidden sm:block">Sistem Absensi</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="flex items-center space-x-1 sm:space-x-3">
                         <!-- Profile Button -->
-                        <button onclick="openProfileModal()" class="flex items-center space-x-1 sm:space-x-2 hover:bg-gray-100 rounded-lg p-1 transition-colors">
-                            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600 font-medium text-xs sm:text-sm" id="userInitials">AS</span>
+                        <button onclick="openProfileModal()" class="flex items-center space-x-2 hover:bg-gray-100 rounded-lg p-1 transition-colors">
+                            <div class="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-xs" id="userInitials">AS</span>
                             </div>
                             <div class="hidden sm:block">
                                 <p class="text-sm font-medium text-gray-800" id="userName">Andi Setiawan</p>
@@ -129,8 +138,8 @@
                             </div>
                         </button>
                         
-                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1 transition-colors">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-2 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                         </button>
@@ -140,86 +149,87 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="bg-white border-b">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="flex space-x-4 sm:space-x-6 overflow-x-auto">
-                    <button onclick="showSection('absensi')" class="nav-btn py-3 px-3 sm:px-4 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-sm sm:text-base">
-                        Absensi
+        <nav class="bg-white border-b sticky top-16 z-30">
+            <div class="px-3 sm:px-4">
+                <div class="flex space-x-1 sm:space-x-6 overflow-x-auto scrollbar-hide">
+                    <button onclick="showSection('absensi')" class="nav-btn py-3 px-4 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-sm flex-shrink-0">
+                        📝 Absensi
                     </button>
-                    <button onclick="showSection('kritik')" class="nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
-                        Kritik & Saran
+                    <button onclick="showSection('kritik')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm flex-shrink-0">
+                        💬 Kritik & Saran
                     </button>
-                    <button onclick="showSection('kontak')" class="nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
-                        Kontak Guru
+                    <button onclick="showSection('kontak')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm flex-shrink-0">
+                        📞 Kontak Guru
                     </button>
                 </div>
             </div>
         </nav>
 
         <!-- Content -->
-        <main class="max-w-6xl mx-auto px-4 py-4 sm:py-6">
+        <main class="px-3 py-4 sm:px-4 sm:py-6 pb-20">
             <!-- Absensi Section -->
             <div id="absensiSection" class="section">
-                <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-                    <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6">Absensi Harian</h2>
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4">📝 Absensi Harian</h2>
                     
-                    <div class="grid lg:grid-cols-3 gap-4 sm:gap-6">
+                    <!-- Mobile-first layout -->
+                    <div class="space-y-6">
                         <!-- Form Absensi -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal</label>
-                                <input type="date" id="tanggalAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">📅 Tanggal</label>
+                                <input type="date" id="tanggalAbsen" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Status Kehadiran</label>
-                                <select id="statusAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="hadir">Hadir</option>
-                                    <option value="sakit">Sakit</option>
-                                    <option value="izin">Izin</option>
-                                    <option value="alpha">Alpha</option>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">✅ Status Kehadiran</label>
+                                <select id="statusAbsen" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
+                                    <option value="hadir">✅ Hadir</option>
+                                    <option value="sakit">🤒 Sakit</option>
+                                    <option value="izin">📝 Izin</option>
+                                    <option value="alpha">❌ Alpha</option>
                                 </select>
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Keterangan (Opsional)</label>
-                                <textarea id="keteranganAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">💬 Keterangan (Opsional)</label>
+                                <textarea id="keteranganAbsen" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
                             </div>
                             
-                            <button onclick="submitAbsensi()" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
-                                Submit Absensi
+                            <button onclick="submitAbsensi()" class="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition duration-200 font-medium text-base shadow-lg">
+                                📤 Submit Absensi
                             </button>
                         </div>
                         
-                        <!-- Riwayat Absensi -->
-                        <div>
-                            <h3 class="font-medium text-gray-800 mb-4">Riwayat Absensi (7 Hari Terakhir)</h3>
-                            <div class="space-y-2" id="riwayatAbsensi">
-                                <div class="text-center py-8 text-gray-500">
-                                    <p class="text-sm">Belum ada riwayat absensi</p>
-                                    <p class="text-xs mt-1">Silakan submit absensi untuk melihat riwayat</p>
-                                </div>
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                                <p class="text-xs text-green-600 mb-1">Total Hadir</p>
+                                <p class="text-2xl font-bold text-green-700" id="totalHadir">0</p>
+                            </div>
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                                <p class="text-xs text-red-600 mb-1">Total Alpha</p>
+                                <p class="text-2xl font-bold text-red-700" id="totalAlpha">0</p>
                             </div>
                         </div>
                         
                         <!-- Statistik Chart -->
                         <div>
-                            <h3 class="font-medium text-gray-800 mb-4">Statistik Kehadiran</h3>
+                            <h3 class="font-medium text-gray-800 mb-3">📊 Statistik Kehadiran</h3>
                             <div class="bg-gray-50 rounded-lg p-4">
                                 <div class="chart-container">
                                     <canvas id="attendanceChart"></canvas>
                                 </div>
                             </div>
-                            
-                            <!-- Quick Stats -->
-                            <div class="grid grid-cols-2 gap-2 mt-4">
-                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
-                                    <p class="text-xs text-green-600">Total Hadir</p>
-                                    <p class="text-lg font-bold text-green-700" id="totalHadir">0</p>
-                                </div>
-                                <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
-                                    <p class="text-xs text-red-600">Total Alpha</p>
-                                    <p class="text-lg font-bold text-red-700" id="totalAlpha">0</p>
+                        </div>
+                        
+                        <!-- Riwayat Absensi -->
+                        <div>
+                            <h3 class="font-medium text-gray-800 mb-3">📋 Riwayat Absensi (7 Hari Terakhir)</h3>
+                            <div class="space-y-2" id="riwayatAbsensi">
+                                <div class="text-center py-8 text-gray-500">
+                                    <p class="text-sm">Belum ada riwayat absensi</p>
+                                    <p class="text-xs mt-1">Silakan submit absensi untuk melihat riwayat</p>
                                 </div>
                             </div>
                         </div>
@@ -229,60 +239,61 @@
 
             <!-- Kritik & Saran Section -->
             <div id="kritikSection" class="section hidden">
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-xl font-bold text-gray-800 mb-6">Kritik & Saran</h2>
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4">💬 Kritik & Saran</h2>
                     
-                    <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="space-y-6">
+                        <!-- Form Section -->
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-                                <select id="kategoriKritik" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="pembelajaran">Pembelajaran</option>
-                                    <option value="fasilitas">Fasilitas</option>
-                                    <option value="guru">Guru</option>
-                                    <option value="sistem">Sistem</option>
-                                    <option value="lainnya">Lainnya</option>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">🏷️ Kategori</label>
+                                <select id="kategoriKritik" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
+                                    <option value="pembelajaran">📚 Pembelajaran</option>
+                                    <option value="fasilitas">🏢 Fasilitas</option>
+                                    <option value="guru">👨‍🏫 Guru</option>
+                                    <option value="sistem">💻 Sistem</option>
+                                    <option value="lainnya">📝 Lainnya</option>
                                 </select>
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Judul</label>
-                                <input type="text" id="judulKritik" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan judul kritik/saran">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">📋 Judul</label>
+                                <input type="text" id="judulKritik" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base" placeholder="Masukkan judul kritik/saran">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Pesan</label>
-                                <textarea id="pesanKritik" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="Tuliskan kritik atau saran Anda di sini..."></textarea>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">💭 Pesan</label>
+                                <textarea id="pesanKritik" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base" rows="4" placeholder="Tuliskan kritik atau saran Anda di sini..."></textarea>
                             </div>
                             
-                            <button onclick="submitKritik()" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
-                                Kirim Kritik & Saran
+                            <button onclick="submitKritik()" class="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition duration-200 font-medium text-base shadow-lg">
+                                📤 Kirim Kritik & Saran
                             </button>
                         </div>
                         
-                        <div class="space-y-4">
-                            <div class="bg-blue-50 rounded-lg p-4">
-                                <h3 class="font-medium text-gray-800 mb-3">Tips Memberikan Kritik & Saran</h3>
-                                <div class="space-y-2 text-sm text-gray-600">
-                                    <p>• Gunakan bahasa yang sopan dan konstruktif</p>
-                                    <p>• Berikan contoh konkret jika memungkinkan</p>
-                                    <p>• Sertakan saran perbaikan</p>
-                                    <p>• Kritik dan saran akan disampaikan secara anonim</p>
-                                </div>
+                        <!-- Tips Section -->
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-800 mb-3">💡 Tips Memberikan Kritik & Saran</h3>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <p>• Gunakan bahasa yang sopan dan konstruktif</p>
+                                <p>• Berikan contoh konkret jika memungkinkan</p>
+                                <p>• Sertakan saran perbaikan</p>
+                                <p>• Kritik dan saran akan disampaikan secara anonim</p>
                             </div>
+                        </div>
 
-                            <div class="bg-gray-50 rounded-lg p-4">
-                                <h3 class="font-medium text-gray-800 mb-3">📊 Data Management</h3>
-                                <div class="space-y-2">
-                                    <button onclick="exportUserData()" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-sm">
-                                        📥 Export Data Saya
-                                    </button>
-                                    <button onclick="clearUserData()" class="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-200 text-sm">
-                                        🗑️ Hapus Semua Data
-                                    </button>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-2">Data disimpan di browser Anda secara lokal</p>
+                        <!-- Data Management Section -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-800 mb-3">📊 Data Management</h3>
+                            <div class="space-y-3">
+                                <button onclick="exportUserData()" class="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition duration-200 text-sm font-medium">
+                                    📥 Export Data Saya
+                                </button>
+                                <button onclick="clearUserData()" class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition duration-200 text-sm font-medium">
+                                    🗑️ Hapus Semua Data
+                                </button>
                             </div>
+                            <p class="text-xs text-gray-500 mt-3 text-center">Data disimpan di browser Anda secara lokal</p>
                         </div>
                     </div>
                 </div>
@@ -290,109 +301,163 @@
 
             <!-- Kontak Guru Section -->
             <div id="kontakSection" class="section hidden">
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-xl font-bold text-gray-800 mb-6">Kontak Guru</h2>
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4">📞 Kontak Guru</h2>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="space-y-4">
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <span class="text-blue-600 font-bold">SM</span>
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-600 font-bold text-sm">SM</span>
                                 </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Sari Manurung, S.Pd</h3>
-                                    <p class="text-sm text-gray-600">Wali Kelas 8A</p>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Sari Manurung, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Wali Kelas 8A</p>
                                 </div>
                             </div>
-                            <div class="space-y-1 text-sm text-gray-600">
-                                <p>📞 +62 812-3456-7890</p>
-                                <p>📧 sari.manurung@strafael.sch.id</p>
-                                <p>📚 Matematika</p>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281234567890" class="text-blue-600 hover:underline">+62 812-3456-7890</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:sari.manurung@strafael.sch.id" class="text-blue-600 hover:underline text-xs">sari.manurung@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Matematika</span>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                                    <span class="text-green-600 font-bold">RK</span>
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-green-600 font-bold text-sm">RK</span>
                                 </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Robert Kalangi, S.Pd</h3>
-                                    <p class="text-sm text-gray-600">Guru IPA</p>
-                                </div>
-                            </div>
-                            <div class="space-y-1 text-sm text-gray-600">
-                                <p>📞 +62 813-4567-8901</p>
-                                <p>📧 robert.kalangi@strafael.sch.id</p>
-                                <p>📚 IPA Terpadu</p>
-                            </div>
-                        </div>
-                        
-                        <div class="border border-gray-200 rounded-lg p-4">
-                            <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                                    <span class="text-purple-600 font-bold">ML</span>
-                                </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Maria Lumowa, S.Pd</h3>
-                                    <p class="text-sm text-gray-600">Guru Bahasa Indonesia</p>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Robert Kalangi, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru IPA</p>
                                 </div>
                             </div>
-                            <div class="space-y-1 text-sm text-gray-600">
-                                <p>📞 +62 814-5678-9012</p>
-                                <p>📧 maria.lumowa@strafael.sch.id</p>
-                                <p>📚 Bahasa Indonesia</p>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281345678901" class="text-blue-600 hover:underline">+62 813-4567-8901</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:robert.kalangi@strafael.sch.id" class="text-blue-600 hover:underline text-xs">robert.kalangi@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>IPA Terpadu</span>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                                    <span class="text-orange-600 font-bold">JT</span>
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-purple-600 font-bold text-sm">ML</span>
                                 </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Jefri Tumundo, S.Pd</h3>
-                                    <p class="text-sm text-gray-600">Guru Bahasa Inggris</p>
-                                </div>
-                            </div>
-                            <div class="space-y-1 text-sm text-gray-600">
-                                <p>📞 +62 815-6789-0123</p>
-                                <p>📧 jefri.tumundo@strafael.sch.id</p>
-                                <p>📚 Bahasa Inggris</p>
-                            </div>
-                        </div>
-                        
-                        <div class="border border-gray-200 rounded-lg p-4">
-                            <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                                    <span class="text-pink-600 font-bold">AS</span>
-                                </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Agnes Senduk, S.Pd</h3>
-                                    <p class="text-sm text-gray-600">Guru IPS</p>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Maria Lumowa, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Bahasa Indonesia</p>
                                 </div>
                             </div>
-                            <div class="space-y-1 text-sm text-gray-600">
-                                <p>📞 +62 816-7890-1234</p>
-                                <p>📧 agnes.senduk@strafael.sch.id</p>
-                                <p>📚 IPS Terpadu</p>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281456789012" class="text-blue-600 hover:underline">+62 814-5678-9012</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:maria.lumowa@strafael.sch.id" class="text-blue-600 hover:underline text-xs">maria.lumowa@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Bahasa Indonesia</span>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
-                                    <span class="text-teal-600 font-bold">PW</span>
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-orange-600 font-bold text-sm">JT</span>
                                 </div>
-                                <div>
-                                    <h3 class="font-medium text-gray-800">Paulus Wowor, S.Pd</h3>
-                                    <p class="text-sm text-gray-600">Guru Pendidikan Agama</p>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Jefri Tumundo, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Bahasa Inggris</p>
                                 </div>
                             </div>
-                            <div class="space-y-1 text-sm text-gray-600">
-                                <p>📞 +62 817-8901-2345</p>
-                                <p>📧 paulus.wowor@strafael.sch.id</p>
-                                <p>📚 Pendidikan Agama Katolik</p>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281567890123" class="text-blue-600 hover:underline">+62 815-6789-0123</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:jefri.tumundo@strafael.sch.id" class="text-blue-600 hover:underline text-xs">jefri.tumundo@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Bahasa Inggris</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-pink-600 font-bold text-sm">AS</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Agnes Senduk, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru IPS</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281678901234" class="text-blue-600 hover:underline">+62 816-7890-1234</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:agnes.senduk@strafael.sch.id" class="text-blue-600 hover:underline text-xs">agnes.senduk@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>IPS Terpadu</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-teal-600 font-bold text-sm">PW</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Paulus Wowor, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Pendidikan Agama</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281789012345" class="text-blue-600 hover:underline">+62 817-8901-2345</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:paulus.wowor@strafael.sch.id" class="text-blue-600 hover:underline text-xs">paulus.wowor@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Pendidikan Agama Katolik</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -404,31 +469,31 @@
     <!-- Teacher Dashboard -->
     <div id="teacherDashboard" class="hidden min-h-screen bg-gray-50">
         <!-- Header -->
-        <header class="bg-white shadow-sm border-b">
-            <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4">
+        <header class="bg-white shadow-sm border-b sticky top-0 z-40">
+            <div class="px-3 py-2 sm:px-4 sm:py-3">
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-2 sm:space-x-3">
-                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-lg sm:text-xl">🎓</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">🎓</span>
                         </div>
                         <div>
-                            <h1 class="text-base sm:text-lg font-bold text-gray-800">St. Rafael School</h1>
-                            <p class="text-xs sm:text-sm text-gray-600 hidden sm:block">Dashboard Guru</p>
+                            <h1 class="text-sm sm:text-lg font-bold text-gray-800">St. Rafael</h1>
+                            <p class="text-xs text-gray-600 hidden sm:block">Dashboard Guru</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-2 sm:space-x-3">
-                        <div class="flex items-center space-x-1 sm:space-x-2">
-                            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600 font-medium text-xs sm:text-sm" id="teacherInitials">TPW</span>
+                    <div class="flex items-center space-x-1 sm:space-x-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-xs" id="teacherInitials">TPW</span>
                             </div>
                             <div class="hidden sm:block">
                                 <p class="text-sm font-medium text-gray-800" id="teacherName">Thalia Putri Wijaya</p>
                                 <p class="text-xs text-gray-600">Wali Kelas 9B</p>
                             </div>
                         </div>
-                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                         </button>
@@ -438,54 +503,48 @@
         </header>
 
         <!-- Teacher Navigation -->
-        <nav class="bg-white border-b">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="flex space-x-4 sm:space-x-6 overflow-x-auto">
-                    <button onclick="showTeacherSection('kehadiran')" class="teacher-nav-btn py-3 px-3 sm:px-4 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-sm sm:text-base">
-                        Kehadiran Hari Ini
+        <nav class="bg-white border-b sticky top-16 z-30">
+            <div class="px-3 sm:px-4">
+                <div class="flex space-x-1 sm:space-x-6 overflow-x-auto scrollbar-hide">
+                    <button onclick="showTeacherSection('kehadiran')" class="teacher-nav-btn py-3 px-3 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-xs flex-shrink-0">
+                        📊 Kehadiran Hari Ini
                     </button>
-                    <button onclick="showTeacherSection('rekap')" class="teacher-nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
-                        Rekap Kehadiran
+                    <button onclick="showTeacherSection('rekap')" class="teacher-nav-btn py-3 px-3 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-xs flex-shrink-0">
+                        📋 Rekap Kehadiran
                     </button>
-                    <button onclick="showTeacherSection('kritik-guru')" class="teacher-nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
-                        Kritik & Saran
+                    <button onclick="showTeacherSection('kritik-guru')" class="teacher-nav-btn py-3 px-3 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-xs flex-shrink-0">
+                        💬 Kritik & Saran
                     </button>
                 </div>
             </div>
         </nav>
 
         <!-- Teacher Content -->
-        <main class="max-w-6xl mx-auto px-4 py-6">
+        <main class="px-3 py-4 sm:px-4 sm:py-6 pb-20">
             <!-- Kehadiran Hari Ini Section -->
             <div id="kehadiranSection" class="teacher-section">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 sm:mb-6">
-                    <div class="bg-green-500 text-white rounded-lg p-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-green-100">Hadir</p>
-                                <p class="text-2xl font-bold" id="hadirCount">0</p>
-                            </div>
-                            <span class="text-2xl">✅</span>
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <div class="bg-green-500 text-white rounded-lg p-3">
+                        <div class="text-center">
+                            <span class="text-lg">✅</span>
+                            <p class="text-xs text-green-100 mt-1">Hadir</p>
+                            <p class="text-xl font-bold" id="hadirCount">0</p>
                         </div>
                     </div>
                     
-                    <div class="bg-yellow-500 text-white rounded-lg p-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-yellow-100">Izin/Sakit</p>
-                                <p class="text-2xl font-bold" id="izinCount">0</p>
-                            </div>
-                            <span class="text-2xl">📝</span>
+                    <div class="bg-yellow-500 text-white rounded-lg p-3">
+                        <div class="text-center">
+                            <span class="text-lg">📝</span>
+                            <p class="text-xs text-yellow-100 mt-1">Izin/Sakit</p>
+                            <p class="text-xl font-bold" id="izinCount">0</p>
                         </div>
                     </div>
                     
-                    <div class="bg-red-500 text-white rounded-lg p-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-red-100">Alpha</p>
-                                <p class="text-2xl font-bold" id="alphaCount">0</p>
-                            </div>
-                            <span class="text-2xl">❌</span>
+                    <div class="bg-red-500 text-white rounded-lg p-3">
+                        <div class="text-center">
+                            <span class="text-lg">❌</span>
+                            <p class="text-xs text-red-100 mt-1">Alpha</p>
+                            <p class="text-xl font-bold" id="alphaCount">0</p>
                         </div>
                     </div>
                 </div>
@@ -1161,6 +1220,9 @@
                 document.getElementById('teacherInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
                 document.getElementById('teacherDashboard').classList.remove('hidden');
                 
+                // Load teacher profile picture
+                loadTeacherProfilePicture(userData.email);
+                
                 // Load teacher data
                 loadTeacherAttendanceData();
                 loadTeacherFeedbackData();
@@ -1168,6 +1230,9 @@
                 document.getElementById('userName').textContent = user.name;
                 document.getElementById('userInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
                 document.getElementById('dashboard').classList.remove('hidden');
+                
+                // Load student profile picture
+                loadProfilePicture(userData.email);
                 
                 // Load student data
                 loadAttendanceHistory();
@@ -1481,6 +1546,9 @@
                     document.getElementById('teacherInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
                     document.getElementById('teacherDashboard').classList.remove('hidden');
                     
+                    // Load teacher profile picture
+                    loadTeacherProfilePicture(currentUser.email);
+                    
                     // Load teacher data
                     loadTeacherAttendanceData();
                     loadTeacherFeedbackData();
@@ -1488,6 +1556,9 @@
                     document.getElementById('userName').textContent = currentUser.name;
                     document.getElementById('userInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
                     document.getElementById('dashboard').classList.remove('hidden');
+                    
+                    // Load student profile picture
+                    loadProfilePicture(currentUser.email);
                     
                     // Load student data
                     loadAttendanceHistory();
@@ -1500,5 +1571,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ecf79f260404fe',t:'MTc1NTEzNzk2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ed084272e40930',t:'MTc1NTEzODY0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
