@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Absensi - SMP Katolik St. Rafael Manado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Login Page -->
+    <div id="loginPage" class="min-h-screen bg-blue-600 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white text-2xl">🎓</span>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">St. Rafael</h1>
+                <p class="text-gray-600">Sistem Absensi</p>
+            </div>
+            
+
+
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="text" id="emailInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="demo@strafael.sch.id" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="passwordInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan password" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Login Sebagai</label>
+                    <select id="roleSelect" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="siswa">Siswa</option>
+                        <option value="guru">Guru</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
+                    Masuk
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden min-h-screen bg-gray-50">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">🎓</span>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold text-gray-800">St. Rafael School</h1>
+                            <p class="text-sm text-gray-600">Sistem Absensi</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-sm" id="userInitials">AS</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800" id="userName">Andi Setiawan</p>
+                                <p class="text-xs text-gray-600">Kelas 9B</p>
+                            </div>
+                        </div>
+                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-white border-b">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex space-x-6">
+                    <button onclick="showSection('absensi')" class="nav-btn py-3 px-4 border-b-2 border-blue-600 text-blue-600 font-medium">
+                        Absensi
+                    </button>
+                    <button onclick="showSection('kritik')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                        Kritik & Saran
+                    </button>
+                    <button onclick="showSection('kontak')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                        Kontak Guru
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <main class="max-w-6xl mx-auto px-4 py-6">
+            <!-- Absensi Section -->
+            <div id="absensiSection" class="section">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">Absensi Harian</h2>
+                    
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal</label>
+                                <input type="date" id="tanggalAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Status Kehadiran</label>
+                                <select id="statusAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="hadir">Hadir</option>
+                                    <option value="sakit">Sakit</option>
+                                    <option value="izin">Izin</option>
+                                    <option value="alpha">Alpha</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Keterangan (Opsional)</label>
+                                <textarea id="keteranganAbsen" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
+                            </div>
+                            
+                            <button onclick="submitAbsensi()" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
+                                Submit Absensi
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-medium text-gray-800 mb-4">Riwayat Absensi (7 Hari Terakhir)</h3>
+                            <div class="space-y-2" id="riwayatAbsensi">
+                                <div class="text-center py-8 text-gray-500">
+                                    <p class="text-sm">Belum ada riwayat absensi</p>
+                                    <p class="text-xs mt-1">Silakan submit absensi untuk melihat riwayat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kritik & Saran Section -->
+            <div id="kritikSection" class="section hidden">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">Kritik & Saran</h2>
+                    
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+                                <select id="kategoriKritik" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="pembelajaran">Pembelajaran</option>
+                                    <option value="fasilitas">Fasilitas</option>
+                                    <option value="guru">Guru</option>
+                                    <option value="sistem">Sistem</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Judul</label>
+                                <input type="text" id="judulKritik" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan judul kritik/saran">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Pesan</label>
+                                <textarea id="pesanKritik" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" placeholder="Tuliskan kritik atau saran Anda di sini..."></textarea>
+                            </div>
+                            
+                            <button onclick="submitKritik()" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
+                                Kirim Kritik & Saran
+                            </button>
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-800 mb-3">Tips Memberikan Kritik & Saran</h3>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <p>• Gunakan bahasa yang sopan dan konstruktif</p>
+                                <p>• Berikan contoh konkret jika memungkinkan</p>
+                                <p>• Sertakan saran perbaikan</p>
+                                <p>• Kritik dan saran akan disampaikan secara anonim</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kontak Guru Section -->
+            <div id="kontakSection" class="section hidden">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">Kontak Guru</h2>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-blue-600 font-bold">SM</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Sari Manurung, S.Pd</h3>
+                                    <p class="text-sm text-gray-600">Wali Kelas 8A</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📞 +62 812-3456-7890</p>
+                                <p>📧 sari.manurung@strafael.sch.id</p>
+                                <p>📚 Matematika</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                    <span class="text-green-600 font-bold">RK</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Robert Kalangi, S.Pd</h3>
+                                    <p class="text-sm text-gray-600">Guru IPA</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📞 +62 813-4567-8901</p>
+                                <p>📧 robert.kalangi@strafael.sch.id</p>
+                                <p>📚 IPA Terpadu</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <span class="text-purple-600 font-bold">ML</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Maria Lumowa, S.Pd</h3>
+                                    <p class="text-sm text-gray-600">Guru Bahasa Indonesia</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📞 +62 814-5678-9012</p>
+                                <p>📧 maria.lumowa@strafael.sch.id</p>
+                                <p>📚 Bahasa Indonesia</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                    <span class="text-orange-600 font-bold">JT</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Jefri Tumundo, S.Pd</h3>
+                                    <p class="text-sm text-gray-600">Guru Bahasa Inggris</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📞 +62 815-6789-0123</p>
+                                <p>📧 jefri.tumundo@strafael.sch.id</p>
+                                <p>📚 Bahasa Inggris</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                                    <span class="text-pink-600 font-bold">AS</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Agnes Senduk, S.Pd</h3>
+                                    <p class="text-sm text-gray-600">Guru IPS</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📞 +62 816-7890-1234</p>
+                                <p>📧 agnes.senduk@strafael.sch.id</p>
+                                <p>📚 IPS Terpadu</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
+                                    <span class="text-teal-600 font-bold">PW</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Paulus Wowor, S.Pd</h3>
+                                    <p class="text-sm text-gray-600">Guru Pendidikan Agama</p>
+                                </div>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <p>📞 +62 817-8901-2345</p>
+                                <p>📧 paulus.wowor@strafael.sch.id</p>
+                                <p>📚 Pendidikan Agama Katolik</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacherDashboard" class="hidden min-h-screen bg-gray-50">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">🎓</span>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-bold text-gray-800">St. Rafael School</h1>
+                            <p class="text-sm text-gray-600">Dashboard Guru</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-sm" id="teacherInitials">TPW</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-800" id="teacherName">Thalia Putri Wijaya</p>
+                                <p class="text-xs text-gray-600">Wali Kelas 9B</p>
+                            </div>
+                        </div>
+                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Teacher Navigation -->
+        <nav class="bg-white border-b">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex space-x-6">
+                    <button onclick="showTeacherSection('kehadiran')" class="teacher-nav-btn py-3 px-4 border-b-2 border-blue-600 text-blue-600 font-medium">
+                        Kehadiran Hari Ini
+                    </button>
+                    <button onclick="showTeacherSection('rekap')" class="teacher-nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                        Rekap Kehadiran
+                    </button>
+                    <button onclick="showTeacherSection('kritik-guru')" class="teacher-nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                        Kritik & Saran
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Teacher Content -->
+        <main class="max-w-6xl mx-auto px-4 py-6">
+            <!-- Kehadiran Hari Ini Section -->
+            <div id="kehadiranSection" class="teacher-section">
+                <div class="grid lg:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-green-500 text-white rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-green-100">Hadir</p>
+                                <p class="text-2xl font-bold" id="hadirCount">0</p>
+                            </div>
+                            <span class="text-2xl">✅</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-500 text-white rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-yellow-100">Izin/Sakit</p>
+                                <p class="text-2xl font-bold" id="izinCount">0</p>
+                            </div>
+                            <span class="text-2xl">📝</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-500 text-white rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-red-100">Alpha</p>
+                                <p class="text-2xl font-bold" id="alphaCount">0</p>
+                            </div>
+                            <span class="text-2xl">❌</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-gray-800">Daftar Kehadiran Kelas 9B</h2>
+                        <div class="flex space-x-2">
+                            <input type="date" id="filterDate" class="px-3 py-1 border border-gray-300 rounded text-sm" value="">
+                            <button onclick="filterByDate()" class="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">Filter</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">No</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nama Siswa</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Status</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Keterangan</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200" id="attendanceTable">
+                                <tr>
+                                    <td colspan="5" class="px-4 py-8 text-center text-gray-500">
+                                        <p class="text-sm">Belum ada data kehadiran hari ini</p>
+                                        <p class="text-xs mt-1">Data akan muncul setelah siswa melakukan absensi</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rekap Kehadiran Section -->
+            <div id="rekapSection" class="teacher-section hidden">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-gray-800">Rekap Kehadiran</h2>
+                        <div class="flex space-x-2">
+                            <select id="monthFilter" class="px-3 py-1 border border-gray-300 rounded text-sm">
+                                <option value="01">Januari 2024</option>
+                                <option value="02">Februari 2024</option>
+                                <option value="03">Maret 2024</option>
+                            </select>
+                            <button onclick="exportExcel()" class="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">Export Excel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">No</th>
+                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nama Siswa</th>
+                                    <th class="px-4 py-2 text-center text-sm font-medium text-gray-700">Hadir</th>
+                                    <th class="px-4 py-2 text-center text-sm font-medium text-gray-700">Izin</th>
+                                    <th class="px-4 py-2 text-center text-sm font-medium text-gray-700">Sakit</th>
+                                    <th class="px-4 py-2 text-center text-sm font-medium text-gray-700">Alpha</th>
+                                    <th class="px-4 py-2 text-center text-sm font-medium text-gray-700">Persentase</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">1</td>
+                                    <td class="px-4 py-2 text-sm font-medium text-gray-900">Cantika Mamahit</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm font-medium text-gray-400">0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">2</td>
+                                    <td class="px-4 py-2 text-sm font-medium text-gray-900">Starly Manalip</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm font-medium text-gray-400">0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">3</td>
+                                    <td class="px-4 py-2 text-sm font-medium text-gray-900">Aileen Lumowa</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm font-medium text-gray-400">0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">4</td>
+                                    <td class="px-4 py-2 text-sm font-medium text-gray-900">Gianina Lumintang</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm font-medium text-gray-400">0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">5</td>
+                                    <td class="px-4 py-2 text-sm font-medium text-gray-900">Natasya Mamahit</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm font-medium text-gray-400">0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900">6</td>
+                                    <td class="px-4 py-2 text-sm font-medium text-gray-900">Naili Selpriyanti</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm text-gray-400 font-medium">0</td>
+                                    <td class="px-4 py-2 text-center text-sm font-medium text-gray-400">0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kritik & Saran Guru Section -->
+            <div id="kritik-guruSection" class="teacher-section hidden">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">Kritik & Saran dari Siswa</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="px-2 py-1 bg-blue-500 text-white text-xs rounded">Pembelajaran</span>
+                                <span class="text-xs text-gray-500">2024-01-15 14:30</span>
+                            </div>
+                            <h3 class="font-medium text-gray-800 mb-2">Saran untuk Metode Pembelajaran</h3>
+                            <p class="text-gray-700 text-sm">Mohon bisa ditambahkan lebih banyak contoh soal dalam pembelajaran matematika. Kadang masih bingung dengan rumus yang diajarkan.</p>
+                            <p class="text-xs text-gray-500 mt-2">Dari: Siswa Anonim</p>
+                        </div>
+                        
+                        <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="px-2 py-1 bg-green-500 text-white text-xs rounded">Guru</span>
+                                <span class="text-xs text-gray-500">2024-01-14 10:15</span>
+                            </div>
+                            <h3 class="font-medium text-gray-800 mb-2">Terima Kasih Bu Sari</h3>
+                            <p class="text-gray-700 text-sm">Bu Sari sangat sabar dalam mengajar dan selalu membantu siswa yang kesulitan. Terima kasih banyak!</p>
+                            <p class="text-xs text-gray-500 mt-2">Dari: Siswa Anonim</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Welcome Popup -->
+    <div id="welcomePopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div id="welcomeCard" class="bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-4 transform scale-0 transition-all duration-500 ease-out">
+            <div class="text-center">
+                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+                    <span class="text-white text-3xl">🎉</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Selamat Datang!</h2>
+                <p class="text-lg font-medium text-blue-600 mb-2" id="welcomeName">Cantika Mamahit</p>
+                <p class="text-gray-600 mb-6" id="welcomeRole">Anda berhasil masuk sebagai Siswa</p>
+                <div class="flex items-center justify-center space-x-2 text-gray-500 mb-6">
+                    <span class="text-sm">Semoga hari Anda menyenangkan!</span>
+                    <span class="text-lg animate-pulse">😊</span>
+                </div>
+                <button onclick="closeWelcomePopup()" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105">
+                    Mulai Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('tanggalAbsen').valueAsDate = new Date();
+        document.getElementById('filterDate').valueAsDate = new Date();
+        
+        // Welcome popup functions
+        function showWelcomePopup(name, role) {
+            const roleText = role === 'guru' ? 'Guru' : 'Siswa';
+            
+            document.getElementById('welcomeName').textContent = name;
+            document.getElementById('welcomeRole').textContent = `Anda berhasil masuk sebagai ${roleText}`;
+            
+            setTimeout(() => {
+                document.getElementById('welcomePopup').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('welcomeCard').classList.remove('scale-0');
+                    document.getElementById('welcomeCard').classList.add('scale-100');
+                }, 100);
+            }, 500);
+        }
+        
+        function closeWelcomePopup() {
+            document.getElementById('welcomeCard').classList.remove('scale-100');
+            document.getElementById('welcomeCard').classList.add('scale-0');
+            setTimeout(() => {
+                document.getElementById('welcomePopup').classList.add('hidden');
+            }, 300);
+        }
+        
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+            const role = document.getElementById('roleSelect').value;
+            
+            if (email === '' || password === '') {
+                alert('Harap isi email dan password');
+                return;
+            }
+            
+            // Valid login credentials
+            const validCredentials = {
+                'cantika@strafael.sch.id': { password: 'cantika123', name: 'Cantika Mamahit', role: 'siswa' },
+                'starly@strafael.sch.id': { password: 'starly123', name: 'Starly Manalip', role: 'siswa' },
+                'aileen@strafael.sch.id': { password: 'aileen123', name: 'Aileen Lumowa', role: 'siswa' },
+                'gianina@strafael.sch.id': { password: 'gianina123', name: 'Gianina Lumintang', role: 'siswa' },
+                'natasya@strafael.sch.id': { password: 'natasya123', name: 'Natasya Mamahit', role: 'siswa' },
+                'naili@strafael.sch.id': { password: 'naili123', name: 'Naili Selpriyanti', role: 'siswa' },
+                'thalia@strafael.sch.id': { password: 'thalia123', name: 'Thalia Putri Wijaya', role: 'guru' }
+            };
+            
+            // Check credentials
+            const user = validCredentials[email.toLowerCase()];
+            if (!user || user.password !== password) {
+                alert('Email atau password salah!');
+                return;
+            }
+            
+            // Check role match
+            if (user.role !== role) {
+                alert(`Akun ini terdaftar sebagai ${user.role}, bukan ${role}!`);
+                return;
+            }
+            
+            // Hide login page
+            document.getElementById('loginPage').classList.add('hidden');
+            
+            // Show appropriate dashboard
+            if (role === 'guru') {
+                document.getElementById('teacherName').textContent = user.name;
+                document.getElementById('teacherInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('teacherDashboard').classList.remove('hidden');
+            } else {
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                document.getElementById('dashboard').classList.remove('hidden');
+            }
+            
+            // Show welcome popup
+            showWelcomePopup(user.name, role);
+        });
+        
+        // Navigation
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(section + 'Section').classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('border-blue-600', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-600');
+            });
+            
+            event.target.classList.remove('border-transparent', 'text-gray-600');
+            event.target.classList.add('border-blue-600', 'text-blue-600');
+        }
+        
+        // Absensi functionality
+        function submitAbsensi() {
+            const tanggal = document.getElementById('tanggalAbsen').value;
+            const status = document.getElementById('statusAbsen').value;
+            
+            if (!tanggal) {
+                alert('Pilih tanggal terlebih dahulu');
+                return;
+            }
+            
+            // Add to history
+            const riwayat = document.getElementById('riwayatAbsensi');
+            const statusColors = {
+                'hadir': 'text-green-600',
+                'sakit': 'text-orange-600',
+                'izin': 'text-yellow-600',
+                'alpha': 'text-red-600'
+            };
+            
+            const newEntry = document.createElement('div');
+            newEntry.className = 'flex justify-between items-center py-2 px-3 bg-gray-50 rounded-md';
+            newEntry.innerHTML = `
+                <span class="text-sm text-gray-600">${tanggal}</span>
+                <span class="text-sm font-medium ${statusColors[status]}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>
+            `;
+            
+            riwayat.insertBefore(newEntry, riwayat.firstChild);
+            document.getElementById('keteranganAbsen').value = '';
+            
+            alert('Absensi berhasil disimpan!');
+        }
+        
+        // Kritik & Saran functionality
+        function submitKritik() {
+            const judul = document.getElementById('judulKritik').value;
+            const pesan = document.getElementById('pesanKritik').value;
+            
+            if (!judul || !pesan) {
+                alert('Harap isi judul dan pesan');
+                return;
+            }
+            
+            document.getElementById('judulKritik').value = '';
+            document.getElementById('pesanKritik').value = '';
+            
+            alert('Kritik & saran berhasil dikirim!');
+        }
+        
+        // Teacher Navigation
+        function showTeacherSection(section) {
+            document.querySelectorAll('.teacher-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(section + 'Section').classList.remove('hidden');
+            
+            document.querySelectorAll('.teacher-nav-btn').forEach(btn => {
+                btn.classList.remove('border-blue-600', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-600');
+            });
+            
+            event.target.classList.remove('border-transparent', 'text-gray-600');
+            event.target.classList.add('border-blue-600', 'text-blue-600');
+        }
+        
+        // Filter by date functionality
+        function filterByDate() {
+            const selectedDate = document.getElementById('filterDate').value;
+            if (!selectedDate) {
+                alert('Pilih tanggal terlebih dahulu');
+                return;
+            }
+            alert(`Menampilkan data kehadiran untuk tanggal: ${selectedDate}`);
+        }
+        
+        // Export to Excel functionality
+        function exportExcel() {
+            const month = document.getElementById('monthFilter').value;
+            const monthNames = {
+                '01': 'Januari',
+                '02': 'Februari', 
+                '03': 'Maret'
+            };
+            
+            let csvContent = "No,Nama Siswa,Hadir,Izin,Sakit,Alpha,Persentase\n";
+            csvContent += "1,Andi Setiawan,18,1,1,0,90%\n";
+            csvContent += "2,Bella Kalangi,20,0,0,0,100%\n";
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Rekap_Kehadiran_${monthNames[month]}_2024.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert(`File Excel berhasil diunduh untuk bulan ${monthNames[month]} 2024!`);
+        }
+        
+        // Logout functionality
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                document.getElementById('dashboard').classList.add('hidden');
+                document.getElementById('teacherDashboard').classList.add('hidden');
+                document.getElementById('loginPage').classList.remove('hidden');
+                
+                document.getElementById('emailInput').value = '';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('roleSelect').value = 'siswa';
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ec4032331ce636',t:'MTc1NTEzMDQ1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
