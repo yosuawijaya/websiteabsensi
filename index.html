@@ -13,7 +13,7 @@
 <body class="bg-gray-50">
     <!-- Login Page -->
     <div id="loginPage" class="min-h-screen bg-blue-600 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+        <div class="bg-white rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-md">
             <div class="text-center mb-8">
                 <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span class="text-white text-2xl">🎓</span>
@@ -54,30 +54,30 @@
     <div id="dashboard" class="hidden min-h-screen bg-gray-50">
         <!-- Header -->
         <header class="bg-white shadow-sm border-b">
-            <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4">
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold">🎓</span>
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-lg sm:text-xl">🎓</span>
                         </div>
                         <div>
-                            <h1 class="text-lg font-bold text-gray-800">St. Rafael School</h1>
-                            <p class="text-sm text-gray-600">Sistem Absensi</p>
+                            <h1 class="text-base sm:text-lg font-bold text-gray-800">St. Rafael School</h1>
+                            <p class="text-xs sm:text-sm text-gray-600 hidden sm:block">Sistem Absensi</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-3">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600 font-medium text-sm" id="userInitials">AS</span>
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <div class="flex items-center space-x-1 sm:space-x-2">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-xs sm:text-sm" id="userInitials">AS</span>
                             </div>
-                            <div>
+                            <div class="hidden sm:block">
                                 <p class="text-sm font-medium text-gray-800" id="userName">Andi Setiawan</p>
                                 <p class="text-xs text-gray-600">Kelas 9B</p>
                             </div>
                         </div>
                         <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                         </button>
@@ -89,14 +89,14 @@
         <!-- Navigation -->
         <nav class="bg-white border-b">
             <div class="max-w-6xl mx-auto px-4">
-                <div class="flex space-x-6">
-                    <button onclick="showSection('absensi')" class="nav-btn py-3 px-4 border-b-2 border-blue-600 text-blue-600 font-medium">
+                <div class="flex space-x-4 sm:space-x-6 overflow-x-auto">
+                    <button onclick="showSection('absensi')" class="nav-btn py-3 px-3 sm:px-4 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-sm sm:text-base">
                         Absensi
                     </button>
-                    <button onclick="showSection('kritik')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                    <button onclick="showSection('kritik')" class="nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
                         Kritik & Saran
                     </button>
-                    <button onclick="showSection('kontak')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                    <button onclick="showSection('kontak')" class="nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
                         Kontak Guru
                     </button>
                 </div>
@@ -104,13 +104,13 @@
         </nav>
 
         <!-- Content -->
-        <main class="max-w-6xl mx-auto px-4 py-6">
+        <main class="max-w-6xl mx-auto px-4 py-4 sm:py-6">
             <!-- Absensi Section -->
             <div id="absensiSection" class="section">
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <h2 class="text-xl font-bold text-gray-800 mb-6">Absensi Harian</h2>
+                <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6">Absensi Harian</h2>
                     
-                    <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal</label>
@@ -201,7 +201,7 @@
                 <div class="bg-white rounded-lg shadow-sm p-6">
                     <h2 class="text-xl font-bold text-gray-800 mb-6">Kontak Guru</h2>
                     
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
                                 <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -313,30 +313,30 @@
     <div id="teacherDashboard" class="hidden min-h-screen bg-gray-50">
         <!-- Header -->
         <header class="bg-white shadow-sm border-b">
-            <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4">
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold">🎓</span>
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-lg sm:text-xl">🎓</span>
                         </div>
                         <div>
-                            <h1 class="text-lg font-bold text-gray-800">St. Rafael School</h1>
-                            <p class="text-sm text-gray-600">Dashboard Guru</p>
+                            <h1 class="text-base sm:text-lg font-bold text-gray-800">St. Rafael School</h1>
+                            <p class="text-xs sm:text-sm text-gray-600 hidden sm:block">Dashboard Guru</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-3">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600 font-medium text-sm" id="teacherInitials">TPW</span>
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <div class="flex items-center space-x-1 sm:space-x-2">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-medium text-xs sm:text-sm" id="teacherInitials">TPW</span>
                             </div>
-                            <div>
+                            <div class="hidden sm:block">
                                 <p class="text-sm font-medium text-gray-800" id="teacherName">Thalia Putri Wijaya</p>
                                 <p class="text-xs text-gray-600">Wali Kelas 9B</p>
                             </div>
                         </div>
                         <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-1">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                         </button>
@@ -348,14 +348,14 @@
         <!-- Teacher Navigation -->
         <nav class="bg-white border-b">
             <div class="max-w-6xl mx-auto px-4">
-                <div class="flex space-x-6">
-                    <button onclick="showTeacherSection('kehadiran')" class="teacher-nav-btn py-3 px-4 border-b-2 border-blue-600 text-blue-600 font-medium">
+                <div class="flex space-x-4 sm:space-x-6 overflow-x-auto">
+                    <button onclick="showTeacherSection('kehadiran')" class="teacher-nav-btn py-3 px-3 sm:px-4 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-sm sm:text-base">
                         Kehadiran Hari Ini
                     </button>
-                    <button onclick="showTeacherSection('rekap')" class="teacher-nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                    <button onclick="showTeacherSection('rekap')" class="teacher-nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
                         Rekap Kehadiran
                     </button>
-                    <button onclick="showTeacherSection('kritik-guru')" class="teacher-nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600">
+                    <button onclick="showTeacherSection('kritik-guru')" class="teacher-nav-btn py-3 px-3 sm:px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm sm:text-base">
                         Kritik & Saran
                     </button>
                 </div>
@@ -366,7 +366,7 @@
         <main class="max-w-6xl mx-auto px-4 py-6">
             <!-- Kehadiran Hari Ini Section -->
             <div id="kehadiranSection" class="teacher-section">
-                <div class="grid lg:grid-cols-3 gap-4 mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 sm:mb-6">
                     <div class="bg-green-500 text-white rounded-lg p-4">
                         <div class="flex items-center justify-between">
                             <div>
@@ -408,14 +408,14 @@
                     </div>
                     
                     <div class="overflow-x-auto">
-                        <table class="w-full">
+                        <table class="w-full min-w-[600px]">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">No</th>
-                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nama Siswa</th>
-                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Status</th>
-                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Keterangan</th>
-                                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Waktu</th>
+                                    <th class="px-2 sm:px-4 py-2 text-left text-xs sm:text-sm font-medium text-gray-700">No</th>
+                                    <th class="px-2 sm:px-4 py-2 text-left text-xs sm:text-sm font-medium text-gray-700">Nama Siswa</th>
+                                    <th class="px-2 sm:px-4 py-2 text-left text-xs sm:text-sm font-medium text-gray-700">Status</th>
+                                    <th class="px-2 sm:px-4 py-2 text-left text-xs sm:text-sm font-medium text-gray-700">Keterangan</th>
+                                    <th class="px-2 sm:px-4 py-2 text-left text-xs sm:text-sm font-medium text-gray-700">Waktu</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200" id="attendanceTable">
@@ -553,19 +553,19 @@
 
     <!-- Welcome Popup -->
     <div id="welcomePopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div id="welcomeCard" class="bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-4 transform scale-0 transition-all duration-500 ease-out">
+        <div id="welcomeCard" class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 max-w-sm sm:max-w-md mx-4 transform scale-0 transition-all duration-500 ease-out">
             <div class="text-center">
-                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
-                    <span class="text-white text-3xl">🎉</span>
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-bounce">
+                    <span class="text-white text-2xl sm:text-3xl">🎉</span>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Selamat Datang!</h2>
-                <p class="text-lg font-medium text-blue-600 mb-2" id="welcomeName">Cantika Mamahit</p>
-                <p class="text-gray-600 mb-6" id="welcomeRole">Anda berhasil masuk sebagai Siswa</p>
-                <div class="flex items-center justify-center space-x-2 text-gray-500 mb-6">
-                    <span class="text-sm">Semoga hari Anda menyenangkan!</span>
-                    <span class="text-lg animate-pulse">😊</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Selamat Datang!</h2>
+                <p class="text-base sm:text-lg font-medium text-blue-600 mb-2" id="welcomeName">Cantika Mamahit</p>
+                <p class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6" id="welcomeRole">Anda berhasil masuk sebagai Siswa</p>
+                <div class="flex items-center justify-center space-x-2 text-gray-500 mb-4 sm:mb-6">
+                    <span class="text-xs sm:text-sm">Semoga hari Anda menyenangkan!</span>
+                    <span class="text-base sm:text-lg animate-pulse">😊</span>
                 </div>
-                <button onclick="closeWelcomePopup()" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-full font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105">
+                <button onclick="closeWelcomePopup()" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 text-sm sm:text-base">
                     Mulai Sekarang
                 </button>
             </div>
@@ -780,5 +780,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ec4032331ce636',t:'MTc1NTEzMDQ1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ecc32c54b90960',t:'MTc1NTEzNTgxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
