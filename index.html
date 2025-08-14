@@ -11,6 +11,8 @@
         body { 
             font-family: 'Inter', sans-serif; 
             transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
         
         /* Hide scrollbar for mobile navigation */
@@ -22,7 +24,12 @@
             display: none;
         }
         
-
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
         
         /* Toast notification styles */
         .toast {
@@ -47,99 +54,181 @@
         
         /* Profile modal styles */
         .modal-backdrop {
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
         }
         
         /* Animation classes */
         .fade-in {
-            animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.5s ease-in;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .slide-up {
-            animation: slideUp 0.3s ease-out;
+            animation: slideUp 0.4s ease-out;
         }
         
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Gradient backgrounds */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-bg-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .gradient-bg-orange {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .gradient-bg-red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .gradient-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Button hover effects */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Card hover effects */
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Login Page -->
-    <div id="loginPage" class="min-h-screen bg-blue-600 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-lg p-6 sm:p-8 w-full max-w-md">
+    <div id="loginPage" class="min-h-screen gradient-bg flex items-center justify-center p-4">
+        <div class="gradient-card rounded-2xl shadow-2xl p-8 w-full max-w-md fade-in">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-white text-2xl">🎓</span>
+                <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <span class="text-white text-3xl">🎓</span>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-800">St. Rafael</h1>
-                <p class="text-gray-600">Sistem Absensi</p>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">St. Rafael</h1>
+                <p class="text-gray-600 text-lg">Sistem Absensi Digital</p>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto mt-4 rounded-full"></div>
             </div>
-            
 
-
-            <form id="loginForm" class="space-y-4">
+            <form id="loginForm" class="space-y-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="text" id="emailInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="demo@strafael.sch.id" required>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">📧 Email</label>
+                    <input type="email" id="emailInput" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300" placeholder="nama@strafael.sch.id" required>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="passwordInput" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan password" required>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">🔐 Password</label>
+                    <input type="password" id="passwordInput" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300" placeholder="Masukkan password" required>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Login Sebagai</label>
-                    <select id="roleSelect" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="siswa">Siswa</option>
-                        <option value="guru">Guru</option>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">👤 Login Sebagai</label>
+                    <select id="roleSelect" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300">
+                        <option value="siswa">👨‍🎓 Siswa</option>
+                        <option value="guru">👨‍🏫 Guru</option>
                     </select>
                 </div>
                 
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium">
-                    Masuk
+                <button type="submit" class="w-full btn-primary text-white py-4 rounded-xl font-semibold text-lg shadow-lg">
+                    🚀 Masuk Sekarang
                 </button>
             </form>
+            
+
         </div>
     </div>
 
     <!-- Dashboard -->
-    <div id="dashboard" class="hidden min-h-screen bg-gray-50">
+    <div id="dashboard" class="hidden min-h-screen" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
         <!-- Header -->
-        <header class="bg-white shadow-sm border-b sticky top-0 z-40">
-            <div class="px-3 py-2 sm:px-4 sm:py-3">
+        <header class="gradient-card shadow-xl border-b sticky top-0 z-40">
+            <div class="px-4 py-4">
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-lg">🎓</span>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center shadow-lg">
+                            <span class="text-white font-bold text-xl">🎓</span>
                         </div>
                         <div>
-                            <h1 class="text-sm sm:text-lg font-bold text-gray-800">St. Rafael</h1>
-                            <p class="text-xs text-gray-600 hidden sm:block">Sistem Absensi</p>
+                            <h1 class="text-xl font-bold text-gray-800">St. Rafael</h1>
+                            <p class="text-sm text-gray-600">Dashboard Siswa</p>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-1 sm:space-x-3">
+                    <div class="flex items-center space-x-3">
+                        <!-- Theme Selector -->
+                        <div class="relative">
+                            <button onclick="toggleThemeSelector()" class="p-2 text-gray-600 hover:text-purple-600 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v6a2 2 0 002 2h4a2 2 0 002-2V5z"></path>
+                                </svg>
+                            </button>
+                            <div id="themeSelector" class="absolute right-0 top-12 bg-white rounded-xl shadow-lg border p-3 z-50 hidden min-w-[200px]">
+                                <p class="text-sm font-semibold text-gray-700 mb-3">🎨 Pilih Tema</p>
+                                <div class="space-y-2">
+                                    <button onclick="changeTheme('blue')" class="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <div class="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                                        <span class="text-sm">Biru (Default)</span>
+                                    </button>
+                                    <button onclick="changeTheme('green')" class="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <div class="w-4 h-4 rounded-full bg-gradient-to-r from-green-500 to-emerald-600"></div>
+                                        <span class="text-sm">Hijau</span>
+                                    </button>
+                                    <button onclick="changeTheme('orange')" class="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <div class="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-600"></div>
+                                        <span class="text-sm">Oranye</span>
+                                    </button>
+                                    <button onclick="changeTheme('red')" class="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <div class="w-4 h-4 rounded-full bg-gradient-to-r from-red-500 to-pink-600"></div>
+                                        <span class="text-sm">Merah</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Notification Bell -->
+                        <button onclick="showNotificationCenter()" class="relative p-2 text-gray-600 hover:text-purple-600 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
+                        </button>
+                        
                         <!-- Profile Button -->
-                        <button onclick="openProfileModal()" class="flex items-center space-x-2 hover:bg-gray-100 rounded-lg p-1 transition-colors">
-                            <div class="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600 font-medium text-xs" id="userInitials">AS</span>
+                        <button onclick="openProfileModal()" class="flex items-center space-x-3 hover:bg-white hover:bg-opacity-20 rounded-xl p-2 transition-all duration-300">
+                            <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center shadow-lg">
+                                <span class="text-white font-medium text-sm" id="userInitials">YW</span>
                             </div>
                             <div class="hidden sm:block">
-                                <p class="text-sm font-medium text-gray-800" id="userName">Andi Setiawan</p>
+                                <p class="text-sm font-semibold text-gray-800" id="userName">Yosua Christian Wijaya</p>
                                 <p class="text-xs text-gray-600">Kelas 9B</p>
                             </div>
                         </button>
                         
-                        <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-2 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button onclick="logout()" class="text-gray-600 hover:text-red-500 p-2 rounded-xl hover:bg-white hover:bg-opacity-20 transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                         </button>
@@ -149,16 +238,16 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="bg-white border-b sticky top-16 z-30">
-            <div class="px-3 sm:px-4">
-                <div class="flex space-x-1 sm:space-x-6 overflow-x-auto scrollbar-hide">
-                    <button onclick="showSection('absensi')" class="nav-btn py-3 px-4 border-b-2 border-blue-600 text-blue-600 font-medium whitespace-nowrap text-sm flex-shrink-0">
+        <nav class="gradient-card shadow-lg border-b sticky top-20 z-30">
+            <div class="px-4">
+                <div class="flex space-x-2 overflow-x-auto scrollbar-hide">
+                    <button onclick="showSection('absensi')" class="nav-btn py-4 px-6 border-b-3 border-purple-600 text-purple-600 font-semibold whitespace-nowrap text-sm flex-shrink-0 rounded-t-xl bg-purple-50">
                         📝 Absensi
                     </button>
-                    <button onclick="showSection('kritik')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm flex-shrink-0">
+                    <button onclick="showSection('kritik')" class="nav-btn py-4 px-6 border-b-3 border-transparent text-gray-600 hover:text-purple-600 hover:bg-purple-50 whitespace-nowrap text-sm flex-shrink-0 rounded-t-xl transition-all duration-300">
                         💬 Kritik & Saran
                     </button>
-                    <button onclick="showSection('kontak')" class="nav-btn py-3 px-4 border-b-2 border-transparent text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm flex-shrink-0">
+                    <button onclick="showSection('kontak')" class="nav-btn py-4 px-6 border-b-3 border-transparent text-gray-600 hover:text-purple-600 hover:bg-purple-50 whitespace-nowrap text-sm flex-shrink-0 rounded-t-xl transition-all duration-300">
                         📞 Kontak Guru
                     </button>
                 </div>
@@ -166,24 +255,32 @@
         </nav>
 
         <!-- Content -->
-        <main class="px-3 py-4 sm:px-4 sm:py-6 pb-20">
+        <main class="px-4 py-6 pb-20">
             <!-- Absensi Section -->
             <div id="absensiSection" class="section">
-                <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
-                    <h2 class="text-lg font-bold text-gray-800 mb-4">📝 Absensi Harian</h2>
+                <div class="gradient-card rounded-2xl shadow-xl p-6 mb-6 hover-card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-white text-xl">📝</span>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-800">Absensi Harian</h2>
+                            <p class="text-gray-600">Catat kehadiran Anda hari ini</p>
+                        </div>
+                    </div>
                     
                     <!-- Mobile-first layout -->
-                    <div class="space-y-6">
+                    <div class="space-y-8">
                         <!-- Form Absensi -->
-                        <div class="space-y-4">
+                        <div class="space-y-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">📅 Tanggal</label>
-                                <input type="date" id="tanggalAbsen" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">📅 Tanggal</label>
+                                <input type="date" id="tanggalAbsen" class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base transition-all duration-300">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">✅ Status Kehadiran</label>
-                                <select id="statusAbsen" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base">
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">✅ Status Kehadiran</label>
+                                <select id="statusAbsen" class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base transition-all duration-300">
                                     <option value="hadir">✅ Hadir</option>
                                     <option value="sakit">🤒 Sakit</option>
                                     <option value="izin">📝 Izin</option>
@@ -192,12 +289,16 @@
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">💬 Keterangan (Opsional)</label>
-                                <textarea id="keteranganAbsen" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base" rows="3" placeholder="Tambahkan keterangan jika diperlukan"></textarea>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">💬 Keterangan (Opsional)</label>
+                                <textarea id="keteranganAbsen" class="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base transition-all duration-300" rows="4" placeholder="Tambahkan keterangan jika diperlukan..."></textarea>
                             </div>
                             
-                            <button onclick="submitAbsensi()" class="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition duration-200 font-medium text-base shadow-lg">
+                            <button onclick="submitAbsensi()" class="w-full btn-primary text-white py-4 rounded-xl font-semibold text-lg shadow-lg">
                                 📤 Submit Absensi
+                            </button>
+                            
+                            <button onclick="requestNotificationPermission()" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl font-semibold text-base shadow-lg transition-all duration-300">
+                                🔔 Aktifkan Pengingat Absensi
                             </button>
                         </div>
                         
@@ -215,10 +316,29 @@
                         
                         <!-- Statistik Chart -->
                         <div>
-                            <h3 class="font-medium text-gray-800 mb-3">📊 Statistik Kehadiran</h3>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="font-medium text-gray-800">📊 Statistik Kehadiran</h3>
+                                <select id="chartType" onchange="updateChartType()" class="text-xs px-2 py-1 border border-gray-300 rounded">
+                                    <option value="doughnut">Donat</option>
+                                    <option value="bar">Batang</option>
+                                    <option value="line">Garis</option>
+                                </select>
+                            </div>
                             <div class="bg-gray-50 rounded-lg p-4">
                                 <div class="chart-container">
                                     <canvas id="attendanceChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Detailed Stats -->
+                            <div class="mt-4 grid grid-cols-2 gap-3">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-blue-600 mb-1">Persentase Kehadiran</p>
+                                    <p class="text-lg font-bold text-blue-700" id="attendancePercentage">0%</p>
+                                </div>
+                                <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-purple-600 mb-1">Streak Terpanjang</p>
+                                    <p class="text-lg font-bold text-purple-700" id="longestStreak">0 hari</p>
                                 </div>
                             </div>
                         </div>
@@ -299,20 +419,25 @@
                 </div>
             </div>
 
+
+
+
+
             <!-- Kontak Guru Section -->
             <div id="kontakSection" class="section hidden">
                 <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
                     <h2 class="text-lg font-bold text-gray-800 mb-4">📞 Kontak Guru</h2>
                     
                     <div class="space-y-4">
-                        <div class="border border-gray-200 rounded-lg p-4">
+                        <!-- Kepala Sekolah -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gradient-to-r from-blue-50 to-purple-50">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-blue-600 font-bold text-sm">SM</span>
+                                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white font-bold text-sm">HD</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="font-medium text-gray-800 text-sm">Sari Manurung, S.Pd</h3>
-                                    <p class="text-xs text-gray-600">Wali Kelas 8A</p>
+                                    <h3 class="font-medium text-gray-800 text-sm">Sir. Herman Ventje Dien, S.Fils</h3>
+                                    <p class="text-xs text-gray-600 font-semibold">👑 Kepala Sekolah</p>
                                 </div>
                             </div>
                             <div class="space-y-2 text-sm text-gray-600">
@@ -322,23 +447,20 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📧</span>
-                                    <a href="mailto:sari.manurung@strafael.sch.id" class="text-blue-600 hover:underline text-xs">sari.manurung@strafael.sch.id</a>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <span class="text-base">📚</span>
-                                    <span>Matematika</span>
+                                    <a href="mailto:herman.dien@strafael.sch.id" class="text-blue-600 hover:underline text-xs">herman.dien@strafael.sch.id</a>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Wakil Kepala Sekolah Kurikulum -->
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
                                 <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-green-600 font-bold text-sm">RK</span>
+                                    <span class="text-green-600 font-bold text-sm">MW</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="font-medium text-gray-800 text-sm">Robert Kalangi, S.Pd</h3>
-                                    <p class="text-xs text-gray-600">Guru IPA</p>
+                                    <h3 class="font-medium text-gray-800 text-sm">Mam Maria Watugigir, SS</h3>
+                                    <p class="text-xs text-gray-600">Wakil Kepala Sekolah Bidang Kurikulum</p>
                                 </div>
                             </div>
                             <div class="space-y-2 text-sm text-gray-600">
@@ -348,23 +470,20 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📧</span>
-                                    <a href="mailto:robert.kalangi@strafael.sch.id" class="text-blue-600 hover:underline text-xs">robert.kalangi@strafael.sch.id</a>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <span class="text-base">📚</span>
-                                    <span>IPA Terpadu</span>
+                                    <a href="mailto:maria.watugigir@strafael.sch.id" class="text-blue-600 hover:underline text-xs">maria.watugigir@strafael.sch.id</a>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Wakil Kepala Sekolah Kesiswaan -->
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
                                 <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-purple-600 font-bold text-sm">ML</span>
+                                    <span class="text-purple-600 font-bold text-sm">TG</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="font-medium text-gray-800 text-sm">Maria Lumowa, S.Pd</h3>
-                                    <p class="text-xs text-gray-600">Guru Bahasa Indonesia</p>
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Telly Aneke Golijot, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Wakil Kepala Sekolah Bidang Kesiswaan & Guru Matematika Kelas 9</p>
                                 </div>
                             </div>
                             <div class="space-y-2 text-sm text-gray-600">
@@ -374,23 +493,24 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📧</span>
-                                    <a href="mailto:maria.lumowa@strafael.sch.id" class="text-blue-600 hover:underline text-xs">maria.lumowa@strafael.sch.id</a>
+                                    <a href="mailto:telly.golijot@strafael.sch.id" class="text-blue-600 hover:underline text-xs">telly.golijot@strafael.sch.id</a>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📚</span>
-                                    <span>Bahasa Indonesia</span>
+                                    <span>Matematika Kelas 9</span>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Guru Bahasa Indonesia Kelas 8-9 -->
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
                                 <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-orange-600 font-bold text-sm">JT</span>
+                                    <span class="text-orange-600 font-bold text-sm">AK</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="font-medium text-gray-800 text-sm">Jefri Tumundo, S.Pd</h3>
-                                    <p class="text-xs text-gray-600">Guru Bahasa Inggris</p>
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Ansela Sendy Kandow, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Bahasa Indonesia Kelas 8-9</p>
                                 </div>
                             </div>
                             <div class="space-y-2 text-sm text-gray-600">
@@ -400,23 +520,24 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📧</span>
-                                    <a href="mailto:jefri.tumundo@strafael.sch.id" class="text-blue-600 hover:underline text-xs">jefri.tumundo@strafael.sch.id</a>
+                                    <a href="mailto:ansela.kandow@strafael.sch.id" class="text-blue-600 hover:underline text-xs">ansela.kandow@strafael.sch.id</a>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📚</span>
-                                    <span>Bahasa Inggris</span>
+                                    <span>Bahasa Indonesia Kelas 8-9</span>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Guru IPA -->
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-pink-600 font-bold text-sm">AS</span>
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-blue-600 font-bold text-sm">SM</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="font-medium text-gray-800 text-sm">Agnes Senduk, S.Pd</h3>
-                                    <p class="text-xs text-gray-600">Guru IPS</p>
+                                    <h3 class="font-medium text-gray-800 text-sm">Pak Guru Selmus Makatimbang, M.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru IPA</p>
                                 </div>
                             </div>
                             <div class="space-y-2 text-sm text-gray-600">
@@ -426,23 +547,24 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📧</span>
-                                    <a href="mailto:agnes.senduk@strafael.sch.id" class="text-blue-600 hover:underline text-xs">agnes.senduk@strafael.sch.id</a>
+                                    <a href="mailto:selmus.makatimbang@strafael.sch.id" class="text-blue-600 hover:underline text-xs">selmus.makatimbang@strafael.sch.id</a>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📚</span>
-                                    <span>IPS Terpadu</span>
+                                    <span>IPA Terpadu</span>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- Guru IPS -->
                         <div class="border border-gray-200 rounded-lg p-4">
                             <div class="flex items-center space-x-3 mb-3">
-                                <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-teal-600 font-bold text-sm">PW</span>
+                                <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-pink-600 font-bold text-sm">MR</span>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="font-medium text-gray-800 text-sm">Paulus Wowor, S.Pd</h3>
-                                    <p class="text-xs text-gray-600">Guru Pendidikan Agama</p>
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Marlina Ratag, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru IPS</p>
                                 </div>
                             </div>
                             <div class="space-y-2 text-sm text-gray-600">
@@ -452,11 +574,301 @@
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📧</span>
-                                    <a href="mailto:paulus.wowor@strafael.sch.id" class="text-blue-600 hover:underline text-xs">paulus.wowor@strafael.sch.id</a>
+                                    <a href="mailto:marlina.ratag@strafael.sch.id" class="text-blue-600 hover:underline text-xs">marlina.ratag@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>IPS Terpadu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru Informatika -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-indigo-600 font-bold text-sm">TW</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Thalia Putri Wijaya, S.Kom</h3>
+                                    <p class="text-xs text-gray-600">Guru Informatika</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281890123456" class="text-blue-600 hover:underline">+62 818-9012-3456</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:thalia@strafael.sch.id" class="text-blue-600 hover:underline text-xs">thalia@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Informatika</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru BDT -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-teal-600 font-bold text-sm">AS</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Ansyela Sengkey, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru BDT</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6281901234567" class="text-blue-600 hover:underline">+62 819-0123-4567</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:ansyela.sengkey@strafael.sch.id" class="text-blue-600 hover:underline text-xs">ansyela.sengkey@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>BDT</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru Agama -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-yellow-600 font-bold text-sm">JM</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Pak Guru Jemmy Mawey, S.Fils</h3>
+                                    <p class="text-xs text-gray-600">Guru Agama</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282012345678" class="text-blue-600 hover:underline">+62 820-1234-5678</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:jemmy.mawey@strafael.sch.id" class="text-blue-600 hover:underline text-xs">jemmy.mawey@strafael.sch.id</a>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <span class="text-base">📚</span>
                                     <span>Pendidikan Agama Katolik</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru PPKN -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-red-600 font-bold text-sm">SW</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Seske Wurangian, S.H</h3>
+                                    <p class="text-xs text-gray-600">Guru PPKN</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282123456789" class="text-blue-600 hover:underline">+62 821-2345-6789</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:seske.wurangian@strafael.sch.id" class="text-blue-600 hover:underline text-xs">seske.wurangian@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>PPKN</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru PJOK -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-emerald-600 font-bold text-sm">PS</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Mam Prisilia Lydia Fransiska Sundah, S.E</h3>
+                                    <p class="text-xs text-gray-600">Guru PJOK</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282234567890" class="text-blue-600 hover:underline">+62 822-3456-7890</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:prisilia.sundah@strafael.sch.id" class="text-blue-600 hover:underline text-xs">prisilia.sundah@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>PJOK</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru Matematika Kelas 7-8 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-cyan-600 font-bold text-sm">SC</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Susan Cicilia, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Matematika Kelas 7-8</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282345678901" class="text-blue-600 hover:underline">+62 823-4567-8901</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:susan.cicilia@strafael.sch.id" class="text-blue-600 hover:underline text-xs">susan.cicilia@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Matematika Kelas 7-8</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru Seni Budaya -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-violet-600 font-bold text-sm">KM</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Kansia Lusia Moningka, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Seni Budaya</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282456789012" class="text-blue-600 hover:underline">+62 824-5678-9012</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:kansia.moningka@strafael.sch.id" class="text-blue-600 hover:underline text-xs">kansia.moningka@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Seni Budaya</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guru Bahasa Indonesia Kelas 7 -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-rose-600 font-bold text-sm">FT</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Freiny Tumbel, S.Pd</h3>
+                                    <p class="text-xs text-gray-600">Guru Bahasa Indonesia Kelas 7</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282567890123" class="text-blue-600 hover:underline">+62 825-6789-0123</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:freiny.tumbel@strafael.sch.id" class="text-blue-600 hover:underline text-xs">freiny.tumbel@strafael.sch.id</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📚</span>
+                                    <span>Bahasa Indonesia Kelas 7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Staff Non-Guru -->
+                        <div class="mt-6 mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">👥 Staff Sekolah</h3>
+                        </div>
+
+                        <!-- Operator Sekolah -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-gray-600 font-bold text-sm">JK</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Pak Jidon Youce Kambey</h3>
+                                    <p class="text-xs text-gray-600">💻 Operator Sekolah</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282678901234" class="text-blue-600 hover:underline">+62 826-7890-1234</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:jidon.kambey@strafael.sch.id" class="text-blue-600 hover:underline text-xs">jidon.kambey@strafael.sch.id</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bendahara Sekolah -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-gray-600 font-bold text-sm">NR</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Norma Rantung</h3>
+                                    <p class="text-xs text-gray-600">💰 Bendahara Sekolah</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282789012345" class="text-blue-600 hover:underline">+62 827-8901-2345</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:norma.rantung@strafael.sch.id" class="text-blue-600 hover:underline text-xs">norma.rantung@strafael.sch.id</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kepala Perpustakaan -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-gray-600 font-bold text-sm">HL</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-medium text-gray-800 text-sm">Ibu Henny Lukar</h3>
+                                    <p class="text-xs text-gray-600">📚 Kepala Perpustakaan</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-sm text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📞</span>
+                                    <a href="tel:+6282890123456" class="text-blue-600 hover:underline">+62 828-9012-3456</a>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-base">📧</span>
+                                    <a href="mailto:henny.lukar@strafael.sch.id" class="text-blue-600 hover:underline text-xs">henny.lukar@strafael.sch.id</a>
                                 </div>
                             </div>
                         </div>
@@ -483,7 +895,7 @@
                     </div>
                     
                     <div class="flex items-center space-x-1 sm:space-x-3">
-                        <div class="flex items-center space-x-2">
+                        <button onclick="openTeacherProfileModal()" class="flex items-center space-x-2 hover:bg-gray-100 rounded-lg p-1 transition-colors">
                             <div class="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center">
                                 <span class="text-blue-600 font-medium text-xs" id="teacherInitials">TPW</span>
                             </div>
@@ -491,7 +903,7 @@
                                 <p class="text-sm font-medium text-gray-800" id="teacherName">Thalia Putri Wijaya</p>
                                 <p class="text-xs text-gray-600">Wali Kelas 9B</p>
                             </div>
-                        </div>
+                        </button>
                         <button onclick="logout()" class="text-gray-500 hover:text-gray-700 p-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
@@ -771,6 +1183,119 @@
         </div>
     </div>
 
+    <!-- Teacher Profile Modal -->
+    <div id="teacherProfileModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-md mx-4 w-full transform scale-0 transition-all duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">Profil Guru</h2>
+                <button onclick="closeTeacherProfileModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white text-2xl font-bold" id="teacherProfileInitials">TPW</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800" id="teacherProfileName">Thalia Putri Wijaya</h3>
+                <p class="text-sm text-gray-600" id="teacherProfileEmail">thalia@strafael.sch.id</p>
+                <p class="text-sm text-gray-500" id="teacherProfileRole">Wali Kelas 9B</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-medium text-gray-800 mb-2">Statistik Mengajar</h4>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                            <p class="text-2xl font-bold text-green-600" id="teacherTotalStudents">32</p>
+                            <p class="text-xs text-gray-600">Total Siswa</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-blue-600" id="teacherAttendanceRate">95%</p>
+                            <p class="text-xs text-gray-600">Tingkat Kehadiran</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-2">
+                    <button onclick="exportTeacherData()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm">
+                        📥 Export Data
+                    </button>
+                    <button onclick="clearTeacherData()" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors text-sm">
+                        🗑️ Hapus Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Center Modal -->
+    <div id="notificationCenter" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-md mx-4 w-full transform scale-0 transition-all duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">🔔 Notifikasi</h2>
+                <button onclick="closeNotificationCenter()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="space-y-4" id="notificationList">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-blue-600 font-semibold text-sm">📚 Pengingat Absensi</span>
+                        <span class="text-xs text-gray-500">2 jam lalu</span>
+                    </div>
+                    <p class="text-gray-700 text-sm">Jangan lupa untuk melakukan absensi hari ini!</p>
+                </div>
+                
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-green-600 font-semibold text-sm">🏆 Achievement Unlocked</span>
+                        <span class="text-xs text-gray-500">1 hari lalu</span>
+                    </div>
+                    <p class="text-gray-700 text-sm">Selamat! Anda mendapat badge "Streak Master" karena hadir 7 hari berturut-turut!</p>
+                </div>
+                
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-purple-600 font-semibold text-sm">⭐ Pencapaian Baru</span>
+                        <span class="text-xs text-gray-500">2 hari lalu</span>
+                    </div>
+                    <p class="text-gray-700 text-sm">Wow! Tingkat kehadiran Anda mencapai 95% bulan ini!</p>
+                </div>
+                
+                <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-orange-600 font-semibold text-sm">🎯 Target Bulanan</span>
+                        <span class="text-xs text-gray-500">2 hari lalu</span>
+                    </div>
+                    <p class="text-gray-700 text-sm">Hanya butuh 3 hari lagi untuk mencapai target kehadiran 100% bulan ini!</p>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-yellow-600 font-semibold text-sm">📅 Event Mendatang</span>
+                        <span class="text-xs text-gray-500">3 hari lalu</span>
+                    </div>
+                    <p class="text-gray-700 text-sm">Upacara bendera akan dilaksanakan besok pagi. Jangan lupa hadir tepat waktu!</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex space-x-2">
+                <button onclick="markAllAsRead()" class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                    ✅ Tandai Semua Dibaca
+                </button>
+                <button onclick="clearAllNotifications()" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors text-sm">
+                    🗑️ Hapus Semua
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toastNotification" class="toast">
         <div class="bg-white border-l-4 border-blue-500 rounded-lg shadow-lg p-4 max-w-sm">
@@ -797,8 +1322,66 @@
             ATTENDANCE: 'strafael_attendance',
             FEEDBACK: 'strafael_feedback',
             USER_DATA: 'strafael_user_data',
-            TEACHER_DATA: 'strafael_teacher_data'
+            TEACHER_DATA: 'strafael_teacher_data',
+            THEME: 'strafael_theme'
         };
+
+        // Theme Management
+        function toggleThemeSelector() {
+            const selector = document.getElementById('themeSelector');
+            selector.classList.toggle('hidden');
+        }
+
+        function changeTheme(theme) {
+            // Save theme preference
+            localStorage.setItem(STORAGE_KEYS.THEME, theme);
+            
+            // Apply theme
+            applyTheme(theme);
+            
+            // Hide selector
+            document.getElementById('themeSelector').classList.add('hidden');
+            
+            // Show success message
+            const themeNames = {
+                'blue': 'Biru',
+                'green': 'Hijau', 
+                'orange': 'Oranye',
+                'red': 'Merah'
+            };
+            showToast('Tema Berubah!', `Tema ${themeNames[theme]} telah diterapkan`, 'success');
+        }
+
+        function applyTheme(theme) {
+            const themeClasses = {
+                'blue': 'gradient-bg',
+                'green': 'gradient-bg-green',
+                'orange': 'gradient-bg-orange', 
+                'red': 'gradient-bg-red'
+            };
+
+            // Update all gradient elements
+            document.querySelectorAll('.gradient-bg, .gradient-bg-green, .gradient-bg-orange, .gradient-bg-red').forEach(el => {
+                el.className = el.className.replace(/gradient-bg[^-\s]*(-\w+)?/g, themeClasses[theme]);
+            });
+
+            // Update button colors
+            const buttonColors = {
+                'blue': 'from-blue-500 to-purple-600',
+                'green': 'from-green-500 to-emerald-600',
+                'orange': 'from-orange-500 to-yellow-600',
+                'red': 'from-red-500 to-pink-600'
+            };
+
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.className = btn.className.replace(/from-\w+-\d+\s+to-\w+-\d+/g, buttonColors[theme]);
+            });
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || 'blue';
+            applyTheme(savedTheme);
+        }
 
         // Initialize storage and load data
         function initializeStorage() {
@@ -1110,15 +1693,19 @@
                 alpha: userAttendance.filter(r => r.status === 'alpha').length
             };
             
+            const chartType = document.getElementById('chartType').value;
+            
             attendanceChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: chartType,
                 data: {
                     labels: ['Hadir', 'Sakit', 'Izin', 'Alpha'],
                     datasets: [{
+                        label: 'Jumlah Hari',
                         data: [statusCounts.hadir, statusCounts.sakit, statusCounts.izin, statusCounts.alpha],
                         backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#ef4444'],
                         borderWidth: 2,
-                        borderColor: '#ffffff'
+                        borderColor: '#ffffff',
+                        tension: 0.4
                     }]
                 },
                 options: {
@@ -1126,20 +1713,43 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'bottom',
+                            position: chartType === 'doughnut' ? 'bottom' : 'top',
                             labels: {
                                 color: '#374151',
                                 font: { size: 12 },
                                 padding: 15
                             }
                         }
-                    }
+                    },
+                    scales: chartType !== 'doughnut' ? {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    } : {}
                 }
             });
             
             // Update quick stats
             document.getElementById('totalHadir').textContent = statusCounts.hadir;
             document.getElementById('totalAlpha').textContent = statusCounts.alpha;
+            
+            // Update detailed stats
+            const totalDays = statusCounts.hadir + statusCounts.sakit + statusCounts.izin + statusCounts.alpha;
+            const percentage = totalDays > 0 ? Math.round((statusCounts.hadir / totalDays) * 100) : 0;
+            document.getElementById('attendancePercentage').textContent = percentage + '%';
+            
+            const streak = calculateAttendanceStreak(userAttendance);
+            document.getElementById('longestStreak').textContent = streak + ' hari';
+        }
+
+        function updateChartType() {
+            if (attendanceChart) {
+                attendanceChart.destroy();
+            }
+            initializeAttendanceChart();
         }
         
         // Welcome popup functions
@@ -1169,96 +1779,115 @@
         // Login functionality
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = document.getElementById('emailInput').value.trim();
-            const password = document.getElementById('passwordInput').value.trim();
-            const role = document.getElementById('roleSelect').value;
             
-            if (email === '' || password === '') {
-                alert('Harap isi email dan password');
-                return;
-            }
-            
-            // Valid login credentials
-            const validCredentials = {
-                'cantika@strafael.sch.id': { password: 'cantika123', name: 'Cantika Mamahit', role: 'siswa' },
-                'starly@strafael.sch.id': { password: 'starly123', name: 'Starly Manalip', role: 'siswa' },
-                'aileen@strafael.sch.id': { password: 'aileen123', name: 'Aileen Lumowa', role: 'siswa' },
-                'gianina@strafael.sch.id': { password: 'gianina123', name: 'Gianina Lumintang', role: 'siswa' },
-                'natasya@strafael.sch.id': { password: 'natasya123', name: 'Natasya Mamahit', role: 'siswa' },
-                'naili@strafael.sch.id': { password: 'naili123', name: 'Naili Selpriyanti', role: 'siswa' },
-                'thalia@strafael.sch.id': { password: 'thalia123', name: 'Thalia Putri Wijaya', role: 'guru' }
-            };
-            
-            // Check credentials
-            const user = validCredentials[email.toLowerCase()];
-            if (!user || user.password !== password) {
-                alert('Email atau password salah!');
-                return;
-            }
-            
-            // Check role match
-            if (user.role !== role) {
-                alert(`Akun ini terdaftar sebagai ${user.role}, bukan ${role}!`);
-                return;
-            }
-            
-            // Save user data to localStorage
-            const userData = {
-                email: email.toLowerCase(),
-                name: user.name,
-                role: role,
-                loginTime: new Date().toISOString()
-            };
-            saveCurrentUser(userData);
+            try {
+                const email = document.getElementById('emailInput').value.trim();
+                const password = document.getElementById('passwordInput').value.trim();
+                const role = document.getElementById('roleSelect').value;
+                
+                if (email === '' || password === '') {
+                    showToast('Error!', 'Harap isi email dan password', 'error');
+                    return;
+                }
+                
+                // Valid login credentials
+                const validCredentials = {
+                    'cantika@strafael.sch.id': { password: 'cantika123', name: 'Cantika Mamahit', role: 'siswa' },
+                    'starly@strafael.sch.id': { password: 'starly123', name: 'Starly Manalip', role: 'siswa' },
+                    'aileen@strafael.sch.id': { password: 'aileen123', name: 'Aileen Lumowa', role: 'siswa' },
+                    'gianina@strafael.sch.id': { password: 'gianina123', name: 'Gianina Lumintang', role: 'siswa' },
+                    'natasya@strafael.sch.id': { password: 'natasya123', name: 'Natasya Mamahit', role: 'siswa' },
+                    'naili@strafael.sch.id': { password: 'naili123', name: 'Naili Selpriyanti', role: 'siswa' },
+                    'yosua@strafael.sch.id': { password: 'yosua123', name: 'Yosua Christian Wijaya', role: 'siswa' },
+                    'thalia@strafael.sch.id': { password: 'thalia123', name: 'Thalia Putri Wijaya', role: 'guru' }
+                };
+                
+                // Check credentials
+                const user = validCredentials[email.toLowerCase()];
+                if (!user || user.password !== password) {
+                    showToast('Login Gagal!', 'Email atau password salah!', 'error');
+                    return;
+                }
+                
+                // Check role match
+                if (user.role !== role) {
+                    showToast('Role Salah!', `Akun ini terdaftar sebagai ${user.role === 'guru' ? 'Guru' : 'Siswa'}!`, 'error');
+                    return;
+                }
+                
+                // Save user data to localStorage
+                const userData = {
+                    email: email.toLowerCase(),
+                    name: user.name,
+                    role: role,
+                    loginTime: new Date().toISOString()
+                };
+                saveCurrentUser(userData);
 
-            // Hide login page
-            document.getElementById('loginPage').classList.add('hidden');
-            
-            // Show appropriate dashboard
-            if (role === 'guru') {
-                document.getElementById('teacherName').textContent = user.name;
-                document.getElementById('teacherInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                document.getElementById('teacherDashboard').classList.remove('hidden');
-                
-                // Load teacher profile picture
-                loadTeacherProfilePicture(userData.email);
-                
-                // Load teacher data
-                loadTeacherAttendanceData();
-                loadTeacherFeedbackData();
-            } else {
-                document.getElementById('userName').textContent = user.name;
-                document.getElementById('userInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                document.getElementById('dashboard').classList.remove('hidden');
-                
-                // Load student profile picture
-                loadProfilePicture(userData.email);
-                
-                // Load student data
-                loadAttendanceHistory();
-                
-                // Initialize chart after a short delay
+                // Hide login page with animation
+                document.getElementById('loginPage').style.opacity = '0';
                 setTimeout(() => {
-                    initializeAttendanceChart();
-                }, 500);
+                    document.getElementById('loginPage').classList.add('hidden');
+                    
+                    // Show appropriate dashboard
+                    if (role === 'guru') {
+                        document.getElementById('teacherName').textContent = user.name;
+                        document.getElementById('teacherInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        document.getElementById('teacherDashboard').classList.remove('hidden');
+                        
+                        // Load teacher data
+                        loadTeacherAttendanceData();
+                        loadTeacherFeedbackData();
+                    } else {
+                        document.getElementById('userName').textContent = user.name;
+                        document.getElementById('userInitials').textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        document.getElementById('dashboard').classList.remove('hidden');
+                        
+                        // Load student data
+                        loadAttendanceHistory();
+                        
+                        // Initialize chart after a short delay
+                        setTimeout(() => {
+                            initializeAttendanceChart();
+                        }, 500);
+                    }
+                    
+                    // Show welcome popup
+                    showWelcomePopup(user.name, role);
+                }, 300);
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                showToast('Error!', 'Terjadi kesalahan saat login', 'error');
             }
-            
-            // Show welcome popup
-            showWelcomePopup(user.name, role);
         });
         
         // Navigation
         function showSection(section) {
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(section + 'Section').classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('border-blue-600', 'text-blue-600');
-                btn.classList.add('border-transparent', 'text-gray-600');
-            });
-            
-            event.target.classList.remove('border-transparent', 'text-gray-600');
-            event.target.classList.add('border-blue-600', 'text-blue-600');
+            try {
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+                
+                // Show selected section
+                const targetSection = document.getElementById(section + 'Section');
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+                
+                // Update navigation buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('border-purple-600', 'text-purple-600', 'bg-purple-50');
+                    btn.classList.add('border-transparent', 'text-gray-600');
+                });
+                
+                // Highlight active button
+                if (event && event.target) {
+                    event.target.classList.remove('border-transparent', 'text-gray-600');
+                    event.target.classList.add('border-purple-600', 'text-purple-600', 'bg-purple-50');
+                }
+            } catch (error) {
+                console.error('Navigation error:', error);
+            }
         }
         
         // Absensi functionality
@@ -1318,6 +1947,13 @@
                 attendanceChart.destroy();
             }
             initializeAttendanceChart();
+            
+
+            
+            // Check for achievements
+            setTimeout(() => {
+                checkAchievements();
+            }, 1000);
             
             // Show success toast
             showToast('Absensi Berhasil!', `Status ${status} untuk tanggal ${tanggal} telah disimpan`, 'success');
@@ -1475,6 +2111,214 @@
             alert('Data berhasil diexport! File JSON telah diunduh.');
         }
 
+
+        
+        // Notification System
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        showToast('Notifikasi Aktif!', 'Anda akan menerima pengingat absensi', 'success');
+                        scheduleAttendanceReminder();
+                    }
+                });
+            }
+        }
+        
+        function scheduleAttendanceReminder() {
+            // Set reminder for 7 AM every day
+            const now = new Date();
+            const reminder = new Date();
+            reminder.setHours(7, 0, 0, 0);
+            
+            if (reminder <= now) {
+                reminder.setDate(reminder.getDate() + 1);
+            }
+            
+            const timeUntilReminder = reminder.getTime() - now.getTime();
+            
+            setTimeout(() => {
+                if (Notification.permission === 'granted') {
+                    new Notification('🎓 Pengingat Absensi St. Rafael', {
+                        body: 'Jangan lupa untuk melakukan absensi hari ini!',
+                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🎓</text></svg>'
+                    });
+                }
+                
+                // Schedule next reminder
+                scheduleAttendanceReminder();
+            }, timeUntilReminder);
+        }
+        
+        // Achievement System
+        function checkAchievements() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) return;
+            
+            const userAttendance = getAttendanceData().filter(record => record.email === currentUser.email);
+            
+            // Check for streak achievement
+            const streak = calculateAttendanceStreak(userAttendance);
+            if (streak >= 7) {
+                showAchievementUnlocked('🔥 Streak Master', `${streak} hari berturut-turut hadir!`);
+            }
+            
+            // Check for perfect month
+            const thisMonth = new Date().getMonth();
+            const thisYear = new Date().getFullYear();
+            const monthlyAttendance = userAttendance.filter(record => {
+                const recordDate = new Date(record.tanggal);
+                return recordDate.getMonth() === thisMonth && recordDate.getFullYear() === thisYear;
+            });
+            
+            const hadirThisMonth = monthlyAttendance.filter(r => r.status === 'hadir').length;
+            const totalDaysThisMonth = monthlyAttendance.length;
+            
+            if (totalDaysThisMonth >= 15 && hadirThisMonth === totalDaysThisMonth) {
+                showAchievementUnlocked('⭐ Perfect Month', 'Kehadiran 100% bulan ini!');
+            }
+        }
+        
+        function calculateAttendanceStreak(attendance) {
+            if (attendance.length === 0) return 0;
+            
+            // Sort by date descending
+            const sortedAttendance = attendance
+                .filter(r => r.status === 'hadir')
+                .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+            
+            let streak = 0;
+            let currentDate = new Date();
+            
+            for (let record of sortedAttendance) {
+                const recordDate = new Date(record.tanggal);
+                const daysDiff = Math.floor((currentDate - recordDate) / (1000 * 60 * 60 * 24));
+                
+                if (daysDiff === streak) {
+                    streak++;
+                    currentDate = recordDate;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+        
+        function showAchievementUnlocked(title, description) {
+            // Create achievement popup
+            const achievementPopup = document.createElement('div');
+            achievementPopup.className = 'fixed top-20 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-4 rounded-xl shadow-2xl z-50 transform translate-x-full transition-transform duration-500';
+            achievementPopup.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <div class="text-2xl">🏆</div>
+                    <div>
+                        <div class="font-bold text-sm">${title}</div>
+                        <div class="text-xs opacity-90">${description}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(achievementPopup);
+            
+            // Animate in
+            setTimeout(() => {
+                achievementPopup.classList.remove('translate-x-full');
+                achievementPopup.classList.add('translate-x-0');
+            }, 100);
+            
+            // Animate out after 4 seconds
+            setTimeout(() => {
+                achievementPopup.classList.remove('translate-x-0');
+                achievementPopup.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(achievementPopup);
+                }, 500);
+            }, 4000);
+        }
+        
+        // Notification Center Functions
+        function showNotificationCenter() {
+            const modal = document.getElementById('notificationCenter');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('div').classList.remove('scale-0');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 100);
+            
+            // Hide notification badge
+            document.getElementById('notificationBadge').classList.add('hidden');
+        }
+        
+        function closeNotificationCenter() {
+            const modal = document.getElementById('notificationCenter');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+        
+        function markAllAsRead() {
+            document.getElementById('notificationBadge').classList.add('hidden');
+            showToast('Berhasil!', 'Semua notifikasi telah ditandai sebagai dibaca', 'success');
+        }
+        
+        function clearAllNotifications() {
+            if (confirm('Hapus semua notifikasi?')) {
+                document.getElementById('notificationList').innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <p class="text-sm">Tidak ada notifikasi</p>
+                        <p class="text-xs mt-1">Notifikasi baru akan muncul di sini</p>
+                    </div>
+                `;
+                document.getElementById('notificationBadge').classList.add('hidden');
+                showToast('Berhasil!', 'Semua notifikasi telah dihapus', 'success');
+                setTimeout(() => {
+                    closeNotificationCenter();
+                }, 1500);
+            }
+        }
+        
+        function addNotification(type, title, message) {
+            const notificationList = document.getElementById('notificationList');
+            const badge = document.getElementById('notificationBadge');
+            
+            // Remove empty state if exists
+            if (notificationList.innerHTML.includes('Tidak ada notifikasi')) {
+                notificationList.innerHTML = '';
+            }
+            
+            const colors = {
+                'info': 'blue',
+                'success': 'green', 
+                'warning': 'yellow',
+                'achievement': 'purple'
+            };
+            
+            const color = colors[type] || 'blue';
+            const now = new Date().toLocaleString('id-ID');
+            
+            const notification = document.createElement('div');
+            notification.className = `bg-${color}-50 border-l-4 border-${color}-500 p-4 rounded`;
+            notification.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-${color}-600 font-semibold text-sm">${title}</span>
+                    <span class="text-xs text-gray-500">Baru saja</span>
+                </div>
+                <p class="text-gray-700 text-sm">${message}</p>
+            `;
+            
+            notificationList.insertBefore(notification, notificationList.firstChild);
+            
+            // Show badge
+            badge.classList.remove('hidden');
+            const currentCount = parseInt(badge.textContent) || 0;
+            badge.textContent = currentCount + 1;
+        }
+
+
+
         // Clear user data functionality
         function clearUserData() {
             const currentUser = getCurrentUser();
@@ -1534,42 +2378,161 @@
             }
         }
 
+
+        
+        // Teacher Profile Modal Functions
+        function openTeacherProfileModal() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) return;
+            
+            // Update profile info
+            document.getElementById('teacherProfileName').textContent = currentUser.name;
+            document.getElementById('teacherProfileEmail').textContent = currentUser.email;
+            document.getElementById('teacherProfileInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            
+            // Show modal
+            const modal = document.getElementById('teacherProfileModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('div').classList.remove('scale-0');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 100);
+        }
+        
+        function closeTeacherProfileModal() {
+            const modal = document.getElementById('teacherProfileModal');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+        
+        function exportTeacherData() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) return;
+            
+            const allAttendance = getAttendanceData();
+            const allFeedback = getFeedbackData();
+            
+            const exportData = {
+                teacher: currentUser,
+                allAttendanceData: allAttendance,
+                allFeedbackData: allFeedback,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Data_Guru_${currentUser.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast('Berhasil!', 'Data guru berhasil diexport', 'success');
+        }
+        
+        function clearTeacherData() {
+            if (!confirm('⚠️ PERINGATAN!\n\nApakah Anda yakin ingin menghapus SEMUA data sistem?\n\nData yang akan dihapus:\n• Semua data absensi siswa\n• Semua kritik & saran\n• Data profil guru\n\nTindakan ini TIDAK DAPAT DIBATALKAN!')) {
+                return;
+            }
+            
+            if (!confirm('Konfirmasi sekali lagi: Hapus SEMUA data sistem?')) {
+                return;
+            }
+            
+            // Clear all data
+            localStorage.removeItem(STORAGE_KEYS.ATTENDANCE);
+            localStorage.removeItem(STORAGE_KEYS.FEEDBACK);
+            localStorage.removeItem(STORAGE_KEYS.USER_DATA);
+            localStorage.removeItem(STORAGE_KEYS.TEACHER_DATA);
+            
+            // Reinitialize storage
+            initializeStorage();
+            
+            // Reload teacher data
+            loadTeacherAttendanceData();
+            loadTeacherFeedbackData();
+            
+            showToast('Berhasil!', 'Semua data sistem telah dihapus', 'success');
+            
+            setTimeout(() => {
+                closeTeacherProfileModal();
+            }, 2000);
+        }
+
         // Auto-login if user data exists
         window.addEventListener('load', function() {
-            const currentUser = getCurrentUser();
-            if (currentUser) {
-                // Auto-login user
-                document.getElementById('loginPage').classList.add('hidden');
+            try {
+                // Load saved theme
+                loadSavedTheme();
                 
-                if (currentUser.role === 'guru') {
-                    document.getElementById('teacherName').textContent = currentUser.name;
-                    document.getElementById('teacherInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                    document.getElementById('teacherDashboard').classList.remove('hidden');
+                // Set today's date as default
+                const today = new Date().toISOString().split('T')[0];
+                const dateInput = document.getElementById('tanggalAbsen');
+                const filterDateInput = document.getElementById('filterDate');
+                
+                if (dateInput) dateInput.value = today;
+                if (filterDateInput) filterDateInput.value = today;
+                
+                const currentUser = getCurrentUser();
+                if (currentUser) {
+                    // Auto-login user
+                    document.getElementById('loginPage').classList.add('hidden');
                     
-                    // Load teacher profile picture
-                    loadTeacherProfilePicture(currentUser.email);
-                    
-                    // Load teacher data
-                    loadTeacherAttendanceData();
-                    loadTeacherFeedbackData();
-                } else {
-                    document.getElementById('userName').textContent = currentUser.name;
-                    document.getElementById('userInitials').textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
-                    document.getElementById('dashboard').classList.remove('hidden');
-                    
-                    // Load student profile picture
-                    loadProfilePicture(currentUser.email);
-                    
-                    // Load student data
-                    loadAttendanceHistory();
-                    
-                    // Initialize chart after a short delay to ensure DOM is ready
-                    setTimeout(() => {
-                        initializeAttendanceChart();
-                    }, 500);
+                    if (currentUser.role === 'guru') {
+                        const teacherNameEl = document.getElementById('teacherName');
+                        const teacherInitialsEl = document.getElementById('teacherInitials');
+                        
+                        if (teacherNameEl) teacherNameEl.textContent = currentUser.name;
+                        if (teacherInitialsEl) teacherInitialsEl.textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        
+                        document.getElementById('teacherDashboard').classList.remove('hidden');
+                        
+                        // Load teacher data
+                        setTimeout(() => {
+                            loadTeacherAttendanceData();
+                            loadTeacherFeedbackData();
+                        }, 100);
+                    } else {
+                        const userNameEl = document.getElementById('userName');
+                        const userInitialsEl = document.getElementById('userInitials');
+                        
+                        if (userNameEl) userNameEl.textContent = currentUser.name;
+                        if (userInitialsEl) userInitialsEl.textContent = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        
+                        document.getElementById('dashboard').classList.remove('hidden');
+                        
+                        // Load student data
+                        setTimeout(() => {
+                            loadAttendanceHistory();
+                            initializeAttendanceChart();
+                        }, 100);
+                    }
                 }
+            } catch (error) {
+                console.error('Auto-login error:', error);
+                // If there's an error, clear user data and show login page
+                clearUserSession();
+                document.getElementById('loginPage').classList.remove('hidden');
+                document.getElementById('dashboard').classList.add('hidden');
+                document.getElementById('teacherDashboard').classList.add('hidden');
+            }
+        });
+
+        // Close theme selector when clicking outside
+        document.addEventListener('click', function(event) {
+            const themeSelector = document.getElementById('themeSelector');
+            const themeButton = event.target.closest('button[onclick="toggleThemeSelector()"]');
+            
+            if (!themeButton && !themeSelector.contains(event.target)) {
+                themeSelector.classList.add('hidden');
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ed084272e40930',t:'MTc1NTEzODY0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96edd1a484d24e53',t:'MTc1NTE0Njg5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
